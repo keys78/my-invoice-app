@@ -1,0 +1,75 @@
+<template>
+  <div>
+      <div>
+      <div class="bg-green-600 text-white border">
+        <li>{{ id }}</li>
+        <li>{{ invoice.city }}</li>
+        <li>{{ invoice.postCode }}</li>
+        <li>{{ invoice.country }}</li>
+      </div>
+      
+  </div>
+  <div>
+      <button @click="delInv">Delete Invoice</button>
+  </div>
+  </div>
+</template>
+
+<script>
+export default {
+    name: 'InvoiceDetails',
+    props: ["id"],
+    components: {
+
+    },
+    data() {
+        return{
+            invoices:[],
+            invoice: {
+            
+            }
+        }
+    },
+    
+     mounted() {
+        // if(this.id) {
+        this.invoices = JSON.parse(localStorage.getItem('invoices')) 
+
+        this.invoices.forEach(invoice => {
+            if(invoice.id === this.id) {
+                console.log(invoice)
+                this.invoice = invoice
+            }
+        });
+
+
+        // this.invoice = this.invoices.find((invoice) => invoice.id === this.id)
+        // console.log(this.invoice)
+        // }
+    },
+
+    methods: {
+        delInv(invoice) {
+           this.invoices.splice(invoice, 1);
+        //    this.persistToLocalStorage();
+
+            // e.target.parentElement.parentElement.remove()
+
+             this.invoices.forEach(invoice => {
+            if(invoice.id === this.id) {
+                console.log(invoice)
+                this.invoices.splice(invoice, 1);
+            }
+        });
+           },
+
+           
+    },
+    
+   
+}
+</script>
+
+<style>
+
+</style>
