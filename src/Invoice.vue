@@ -69,8 +69,8 @@ export default {
 <style>
 .my-pending{
     padding: 8px 1px;
-    background: rgb(250, 238, 68);
-    color: rgb(255, 2, 2);
+    background: rgba(255, 182, 72, 0.575);
+    color: rgb(255, 145, 0);
     width: 110px;
     display: flex;
     justify-content: center;
@@ -79,7 +79,7 @@ export default {
 }
 .paid{
     padding: 6px 3px;
-    background: rgb(123, 241, 87);
+    background: rgba(123, 241, 87, 0.541);
     color:rgb(4, 139, 26);
 }
 .paid .my-circle{

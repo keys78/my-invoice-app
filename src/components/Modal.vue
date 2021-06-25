@@ -41,18 +41,17 @@ export default {
     data() {
         return {
             invoices:[],
-            invoice: {
-            addItems:[{
-                itemname: 'rrdtfhjgkh',
-                quantity:'435',
-                price:'54657',
-                subTotal:'',       
-            }],
-            },
+            invoice: {},
             id:'',
             city:'',
             postCode:'',
             country:'',
+            addItems:[],
+            addItem: {
+                itemname:'',
+                quantity:'',
+                price:'',
+            }
         }
     },
 
@@ -70,14 +69,16 @@ export default {
                  statusText: 'Pending',
                  paid: false,
 
-                // addItems: ({
-                    // itemname = this.itemname,
-                    // quantity = this.quantity,
-                    // price = this.price
-                // })
+                addItems:[{
+                    itemname: this.addItem.itemname,
+                    quantity: this.addItem.quantity,
+                    price :   this.addItem.price
+                }]
+
+               
                  
             })
-       
+            
                 let uniqueId = ''
                 let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                 uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
