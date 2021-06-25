@@ -19,7 +19,7 @@
                     <label class="text-sm">Country</label>
                     <input v-model="country" type="text" class="input-group">
                 </div>
-                <AddItem :addItems="invoice.addItems"/>
+                <AddItem :addItems="addItems"/>
                 <input type="submit" value="submit" class="submit">
             </form>
         </div>
@@ -41,21 +41,25 @@ export default {
     data() {
         return {
             invoices:[],
-            invoice: {},
+            invoice: {
+                
+            },
             id:'',
             city:'',
             postCode:'',
             country:'',
-            addItems:[],
-            addItem: {
-                itemname:'',
-                quantity:'',
-                price:'',
-            }
+            addItems: [{
+                itemname: '',
+                quantity: '',
+                price: '',
+            }],
+           
+            
         }
     },
 
      beforeMount() {
+         console.log(this.addItems)
         this.invoices = JSON.parse(localStorage.getItem('invoices'))
     },
 
@@ -70,15 +74,15 @@ export default {
                  paid: false,
 
                 addItems:[{
-                    itemname: this.addItem.itemname,
-                    quantity: this.addItem.quantity,
-                    price :   this.addItem.price
+                    itemname: this.addItems[0].itemname,
+                    quantity: this.addItems[0].quantity,
+                    price :   this.addItems[0].price
                 }]
 
                
                  
             })
-            
+                
                 let uniqueId = ''
                 let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                 uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))

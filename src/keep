@@ -1,75 +1,124 @@
 <template>
-  <div>
-      <div>
-      <div class="bg-green-600 text-white border">
-        <li>{{ id }}</li>
-        <li>{{ invoice.city }}</li>
-        <li>{{ invoice.postCode }}</li>
-        <li>{{ invoice.country }}</li>
-      </div>
-      
-  </div>
-  <div>
-      <button @click="delInv">Delete Invoice</button>
-  </div>
-  </div>
+<div>
+    <div class="backdrop" @click.self="$emit('close')">
+        <div class="modal w-6/12 bg-red-500 h-screen">
+        <h1 class="py-12 pl-6 mx-auto text-2xl font-semibold">Create Invoice</h1>
+
+        <div class="border border-current w-10/12 mx-auto">
+            <form @submit.prevent="saveInvoice">
+                <div>
+                    <!-- <input v-model="id"> -->
+                    <label class="text-sm">City</label>
+                    <input v-model="city" type="text" class="input-group">
+                </div>
+                <div>
+                    <label class="text-sm">Postcode</label>
+                    <input v-model="postCode" type="text" class="input-group">
+                </div>
+                <div>
+                    <label class="text-sm">Country</label>
+                    <input v-model="country" type="text" class="input-group">
+                </div>
+                <AddItem :addItems="addItems"/>
+                <input type="submit" value="submit" class="submit">
+            </form>
+        </div>
+
+
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
-export default {
-    name: 'InvoiceDetails',
-    props: ["id"],
-    components: {
+import AddItem from '../components/AddItem.vue'
 
+export default {
+    name: 'Modal',
+    components:{
+        AddItem
     },
     data() {
-        return{
+        return {
             invoices:[],
-            invoice: {
+            invoice: {},
+            id:'',
+            city:'',
+            postCode:'',
+            country:'',
+            addItems: [{
+                //  addItem: {
+                itemname:'',
+                quantity:'',
+                price:'',
+            // }
+            }],
+           
             
-            }
         }
     },
-    
-     mounted() {
-        // if(this.id) {
-        this.invoices = JSON.parse(localStorage.getItem('invoices')) 
 
-        this.invoices.forEach(invoice => {
-            if(invoice.id === this.id) {
-                console.log(invoice)
-                this.invoice = invoice
-            }
-        });
-
-
-        // this.invoice = this.invoices.find((invoice) => invoice.id === this.id)
-        // console.log(this.invoice)
-        // }
+     beforeMount() {
+        //  console.log(this.addItems.itemname)
+        this.invoices = JSON.parse(localStorage.getItem('invoices'))
     },
 
     methods: {
-        delInv(invoice) {
-           this.invoices.splice(invoice, 1);
-        //    this.persistToLocalStorage();
+        saveInvoice() {
+            this.invoice = ({
+                 id: '',
+                 city: this.city,
+                 postCode: this.postCode,
+                 country: this.country,
+                 statusText: 'Pending',
+                 paid: false,
 
-            // e.target.parentElement.parentElement.remove()
+                addItems:[{
+                    itemname: this.addItems[0].itemname,
+                    quantity: this.addItems[0].quantity,
+                    price :   this.addItems[0].price
+                }]
 
-             this.invoices.forEach(invoice => {
-            if(invoice.id === this.id) {
-                console.log(invoice)
-                this.invoices.splice(invoice, 1);
-            }
-        });
-           },
-
+               
+                 
+            })
+                
+                let uniqueId = ''
+                let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
+                uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
+                uniqueId += String(Math.random()).slice(2, 6);
+                this.invoice.id = uniqueId;
+                console.log(uniqueId)
+               
+            this.saveToLocalStorage();
            
-    },
-    
-   
+        },
+
+        pushToLocalStorage() { 
+            localStorage.setItem('invoices', JSON.stringify(this.invoices))
+        },
+
+        saveToLocalStorage() {
+            this.invoices.unshift(this.invoice);
+            this.pushToLocalStorage();
+        },
+    }
 }
 </script>
 
 <style>
-
+.backdrop{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    background: rgba(0,0,0,0.4);
+    
+}
+.modal{
+    background: white;
+    color:black;
+    transition: background 0.5s ease-in-out;
+}
 </style>

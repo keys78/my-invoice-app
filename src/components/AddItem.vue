@@ -51,11 +51,12 @@ export default {
     methods:{
 
       AddItem() {
-      this.addItems.push({
+      this.addItem = ({
         itemname: '',
         quantity:'',
         price:''
       })
+      this.addItems.push(this.addItem)
       },
 
     deleteItem(counter){
