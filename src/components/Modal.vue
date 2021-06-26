@@ -1,27 +1,136 @@
 <template>
 <div>
     <div class="backdrop" @click.self="$emit('close')">
-        <div class="modal w-6/12 bg-red-500 h-screen">
-        <h1 class="py-12 pl-6 mx-auto text-2xl font-semibold">Create Invoice</h1>
+        <div class="modal w-6/12">
+        <h1 class="py-12 pl-24 mx-auto text-2xl font-semibold">Create Invoice</h1>
 
-        <div class="border border-current w-10/12 mx-auto">
-            <form @submit.prevent="saveInvoice">
-                <div>
-                    <!-- <input v-model="id"> -->
-                    <label class="text-sm">City</label>
-                    <input v-model="city" type="text" class="input-group">
+        <div class="">
+            <form @submit="saveInvoice">
+                 <div class="form-holder md:w-9/12 w-full md:pl-6 pl-2 mx-auto overflow-y-scroll">
+                    <h2 class="text-sm font-bold mini-headers pb-6">Bill from</h2>
+
+                    <label class="text-sm">Street Address</label>
+                    <input v-model="streetAddress" type="text" class="input-group">
+
+                    <div class="flex justify-between gap-4 mt-5">
+                        <div>
+                            <label class="text-sm">City</label>
+                            <input v-model="city" type="text" class="input-group">
+                        </div>
+                        <div>
+                            <label class="text-sm">Postcode</label>
+                            <input v-model="postCode" type="text" class="input-group">
+                        </div>
+                        <div>
+                            <label class="text-sm">Country</label>
+                            <input v-model="country" type="text" class="input-group">
+                        </div>
+                    </div>
+                        <!--from-->
+                        <h2 class="mt-8 text-sm font-bold mini-headers pb-6">Bill from</h2>
+
+                        <label class="text-sm">Client's Name</label>
+                        <input v-model="clientName" type="text" class="input-group">
+
+                        <div class="py-4">
+                            <label class="text-sm pt-4">Client's Email</label>
+                            <input v-model="clientEmail" type="text" class="input-group mb-4">
+                        </div>
+
+                        <label class="text-sm">Street Address</label>
+                        <input v-model="clientStreetAddress" type="text" class="input-group">
+
+                        <div class="flex justify-between gap-4 mt-5">
+                            <div>
+                                <label class="text-sm">City</label>
+                                <input v-model="clientCity" type="text" class="input-group">
+                            </div>
+                            <div>
+                                <label class="text-sm">Postcode</label>
+                                <input v-model="clientPostCode" type="text" class="input-group">
+                            </div>
+                            <div>
+                                <label class="text-sm">Country</label>
+                                <input v-model="clientCountry" type="text" class="input-group">
+                            </div>
+                    </div>
+
+                        <div class="flex justify-between gap-4 mt-5">
+                            <div>
+                                <label class="text-sm">Invoice Date</label>
+                                <input v-model="invoiceDate" type="date" class="input-group">
+                            </div>
+                            <div>
+                                <label class="text-sm">Payment Terms</label>
+                                <select v-model="paymentTerms" type="text" class="input-group">
+                                <option value="Net 1 Day">Net 1 Day</option>
+                                <option value="Net 7 Days">Net 7 Days</option>
+                                <option value="Net 21 Days">Net 21 Days</option>
+                                <option value="Net 30 Days">Net 30 Days</option>
+                                </select>
+                            </div>
+
+                    </div>
+
+                            <div class="py-6">
+                                <label class="text-sm">Description</label>
+                                <input v-model="description" type="text" class="input-group " placeholder="eg:crypto vendor services">
+                            </div>
+
+                            <h1 class="text-gray-400 font-bold py-5 text-xl">items List</h1>
+
+                        
+                        <div v-for="(addItem, counter) in addItems" :key="counter" class="flex justify-between items-center gap-4 pb-4">
+                    <div>
+                        <label class="text-sm">Item Name</label>
+                        <input type="text" class="input-group w-4/12" v-model="addItem.itemname">
+                    </div>
+                    <div>
+                            <label class="text-sm">Qty</label>
+                            <input type="number" class="input-group w-2/12" v-model="addItem.quantity">
+                    </div>
+                    <div>
+                            <label class="text-sm">Price</label>
+                            <input type="number" class="input-group w-2/12" v-model="addItem.price">
+                    </div>
+                        
+                    <div class="w-2/12">
+                            <label class="text-sm">Total</label>
+                            <input v-model="addItem.subTotal" disabled class="px-1 py-2 focus:outline-none border-none w-9/12" >
+                    </div>
+            
+                    <div class="w-2/12 cursor-pointer" @click="deleteItem(counter)"><img class="mx-auto mt-5" src="../assets/images/icon-delete.svg" alt="plus-icon" /></div>
+
                 </div>
-                <div>
-                    <label class="text-sm">Postcode</label>
-                    <input v-model="postCode" type="text" class="input-group">
-                </div>
-                <div>
-                    <label class="text-sm">Country</label>
-                    <input v-model="country" type="text" class="input-group">
-                </div>
-                <AddItem :addItems="addItems"/>
-                <input type="submit" value="submit" class="submit">
-            </form>
+
+                <button  @click.prevent="AaddItem" class="mt-6 bg-red-500 text-white"> + Add Items</button>
+
+
+
+
+                            
+                 </div>      
+
+                    <div class="flex justify-between mt-10 md:w-8/12 w-full mx-auto">
+                        <div class="">
+                            <button @click.self="$emit('close')" class="discard-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Discard</button>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div>
+                                <button class="draft-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</button>
+                            </div>
+
+                            <div>
+                                <button type="submit"  class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </form>
+           
         </div>
 
 
@@ -31,58 +140,87 @@
 </template>
 
 <script>
-import AddItem from '../components/AddItem.vue'
 
 export default {
     name: 'Modal',
     components:{
-        AddItem
     },
     data() {
         return {
             invoices:[],
-            invoice: {
-                
-            },
-            id:'',
+            invoice: {},
+            id: '',
+            streetAddress:'',
             city:'',
-            postCode:'',
-            country:'',
-            addItems: [{
+            postCode: '', 
+            country: '', 
+            clientName: '', 
+            clientEmail: '', 
+            clientStreetAddress:'',
+            clientCity:'', 
+            clientCountry:'', 
+            clientPostCode:'', 
+            invoiceDate: '', 
+            description: '', 
+            addItems:[{
                 itemname: '',
-                quantity: '',
-                price: '',
+                quantity:'',
+                price:'',
             }],
-           
-            
         }
     },
 
      beforeMount() {
-         console.log(this.addItems)
         this.invoices = JSON.parse(localStorage.getItem('invoices'))
     },
 
     methods: {
+        AaddItem() {
+            this.addItem = ({
+               
+            })
+        this.addItems.push(this.addItem)
+        localStorage.setItem('invoices', JSON.stringify(this.invoices))
+        },
+
+
+
         saveInvoice() {
             this.invoice = ({
-                 id: '',
-                 city: this.city,
-                 postCode: this.postCode,
-                 country: this.country,
-                 statusText: 'Pending',
-                 paid: false,
+                id: '',
+                streetAddress: this.streetAddress,
+                city: this.city,
+                postCode: this.postCode, 
+                country: this.country, 
+                clientName: this.clientName, 
+                clientEmail: this.clientEmail, 
+                clientStreetAddress: this.clientStreetAddress,
+                clientCity: this.clientCity, 
+                clientCountry: this.clientCountry, 
+                clientPostCode: this.clientPostCode, 
+                invoiceDate: this.invoiceDate, 
+                description: this.description, 
+                statusText: 'Pending',
+                paid: false,
 
                 addItems:[{
                     itemname: this.addItems[0].itemname,
                     quantity: this.addItems[0].quantity,
-                    price :   this.addItems[0].price
-                }]
-
+                    price   : this.addItems[0].price,
+                    
+                },{
+                    itemname: this.addItems[1].itemname,
+                    quantity: this.addItems[1].quantity,
+                    price   : this.addItems[1].price,
+                    
+                }
+                
+                ]
+                
                
                  
             })
-                
+        
                 let uniqueId = ''
                 let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                 uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
@@ -103,6 +241,11 @@ export default {
             this.invoices.unshift(this.invoice);
             this.pushToLocalStorage();
         },
+
+         
+    deleteItem(counter){
+      this.addItems.splice(counter,1);
+    },
     }
 }
 </script>
@@ -116,9 +259,81 @@ export default {
     background: rgba(0,0,0,0.4);
     
 }
+.input-group{
+    padding:11px 7px;
+    border:1px solid #d9d0ff;
+    font-size: 16px;
+    width: 100%;
+    background: transparent;
+    font-family: 'Source Serif Pro', serif;
+    border-radius: 7px;
+    color:#5d5386;
+}
+.input-group:focus{
+    outline:none;
+    border: 1px solid #7c5ef3;
+}
+::placeholder{
+    color:#929596;
+}
+.mini-headers{
+    color:#7c5dfa;
+
+}.form-holder{
+    height:70vh;
+}
+
+.save-button{
+     background:#7c5dfa;
+     transition: 0.3s linear all;
+}.save-button:hover{
+    opacity: 0.7;
+    transition: 0.3s linear all;
+
+}
+.draft-button{
+     background:#363b53;
+     transition: 0.3s linear all;
+}
+.draft-button:hover {
+     background:#000000;
+     transition: 0.3s linear all;
+}
+.discard-button{
+    background: #f1f4fd;
+    color:#7c5dfa;
+     transition: 0.3s linear all;
+}
+.discard-button:hover{
+    background: #ced7f7;
+    color:#7c5dfa;
+     transition: 0.3s linear all;
+}
+.delete-button{
+    background: rgb(235, 73, 73);
+    color:#f5f7ff;
+     transition: 0.3s linear all;
+}
+.delete-button:hover{
+    background: #f10e0e;
+    color:#f1f4ff;
+     transition: 0.3s linear all;
+}
 .modal{
     background: white;
     color:black;
+    transition: background 0.5s ease-in-out;
+}
+ .dark .modal{
+     background:rgb(20, 22, 37);
+     color:#DFE3FA;
+     transition: background 0.5s ease-in-out;
+ }
+ .dark .input-group{
+    background: #1e2139;
+    font-family: 'Source Serif Pro', serif;
+    color:#DFE3FA;
+    border:none;
     transition: background 0.5s ease-in-out;
 }
 </style>

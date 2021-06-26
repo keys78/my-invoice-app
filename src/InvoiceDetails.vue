@@ -16,7 +16,7 @@
             <p class="billTops col-span-3">{{ addItems.itemname }}</p>
             <p class="billTops col-span-2">{{ addItems.quantity }}</p>
             <p class="billTops col-span-2">{{ addItems.price }}</p>
-            <!-- <p class="billTops col-span-1">&#163;{{ addItems.subTotal = addItems.quantity*addItems.price }}</p> -->
+            <p class="billTops col-span-1">&#163;{{ addItems.subTotal = addItems.quantity*addItems.price }}</p>
         </div>
 
       <button @click="delInv(invoice)">Delete Invoice</button>
