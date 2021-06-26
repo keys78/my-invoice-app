@@ -6,7 +6,7 @@
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
       </div>
       <div class="navHolders ">
-        <!-- <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/> -->
+        <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/>
         <div @click="openProfile" class="avatar cursor-pointer">
           <img class="mx-auto rounded-full w-10" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
         </div>
@@ -98,7 +98,7 @@ import Invoice from './Invoice.vue'
 
     
     .apple{
-      background:rgb(151, 8, 68);
+      background:rgb(250, 247, 248);
       transition: background 0.5s ease-in-out;
     }
     .dark{

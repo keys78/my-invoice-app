@@ -163,10 +163,13 @@ export default {
             invoiceDate: '', 
             description: '', 
             addItems:[{
+                
+            }],
+            addItem : {
                 itemname: '',
                 quantity:'',
                 price:'',
-            }],
+            }
         }
     },
 
@@ -179,7 +182,9 @@ export default {
             this.addItem = ({
                
             })
+       
         this.addItems.push(this.addItem)
+         console.log(this.addItems)
         localStorage.setItem('invoices', JSON.stringify(this.invoices))
         },
 
@@ -203,19 +208,15 @@ export default {
                 statusText: 'Pending',
                 paid: false,
 
-                addItems:[{
-                    itemname: this.addItems[0].itemname,
-                    quantity: this.addItems[0].quantity,
-                    price   : this.addItems[0].price,
+                addItems: this.addItems,
+                // {
+                //     itemname: this.addItems[1].itemname,
+                //     quantity: this.addItems[1].quantity,
+                //     price   : this.addItems[1].price,
                     
-                },{
-                    itemname: this.addItems[1].itemname,
-                    quantity: this.addItems[1].quantity,
-                    price   : this.addItems[1].price,
-                    
-                }
+                // }
                 
-                ]
+                
                 
                
                  

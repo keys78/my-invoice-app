@@ -1,5 +1,5 @@
 <template>
-  <div class="my-iv-hold">
+  <div class="my-iv-hold h-screen">
       <div v-if="showModal">
         <Modal @close="toggleModal"/>
       </div>
@@ -155,10 +155,10 @@ export default {
 .invoice{
   background: white;
   margin:16px 0px;
-  padding: 17px 0px;
+  padding: 21px 0px;
   padding-right:10px;
   padding-left:25px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
   color:#666ea0;
   border-radius: 5px;
