@@ -1,5 +1,5 @@
 <template>
- <section>
+ <section :class="mode">
 
    <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:1;">
       <div class="logo-holder rounded-r-2xl">
@@ -33,26 +33,42 @@
 
 <script >
 import Invoice from './Invoice.vue'
+import DarkModeButton from './components/DarkModeButton.vue'
 
 
   export default {
     name: 'App',
     components: {
       Invoice,
+      DarkModeButton
 
     }, 
     data() {
       return {
-        showProfile:false
+        showProfile:false,
+        mode:''
       }
     },
+
+    beforeMount() {
+      this.currentmode = localStorage.getItem('mode')
+      this.mode = this.currentmode
+    },
+
+
     methods: {
       closeProfile() {
       this.showProfile = false
       },
+
       openProfile() {
       this.showProfile = !this.showProfile
-      }
+      },
+
+      nightMode() {
+       this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
+       localStorage.setItem('mode', this.mode)
+      },
     }
 
    
@@ -139,9 +155,9 @@ import Invoice from './Invoice.vue'
       width:100%;
       padding-top:65px;
     }
-    .modalEdit{
+    /* .modalEdit{
       padding-top:65px;
-    }
+    } */
     }.form-holder{
       height:490px;
   }

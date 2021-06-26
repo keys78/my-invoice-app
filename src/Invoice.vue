@@ -1,7 +1,7 @@
 <template>
-  <div class="my-iv-hold h-screen">
+  <div class="h-screen">
       <div v-if="showModal">
-        <Modal @close="toggleModal"/>
+        <Modal :mode="mode" @close="toggleModal"/>
       </div>
 
       <div class="xl:w-6/12 lg:w-8/12 md:w-9/12 w-11/12 mx-auto pt-16">
@@ -55,11 +55,12 @@
             <div v-if="invoices" class="">
                  <div v-for="invoice in invoices" :key="invoice.id" class="invoice">
                 <router-link :to="{name: 'InvoiceDetails', params: { id: invoice.id }}">
-                <div class="grid grid-cols-12 items-center md:grid hidden">
+                <div class="grid grid-cols-12 items-center">
                     <h1 class="col-span-2"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
                     <h1 class="col-span-2">Due {{invoice.invoiceDate}}</h1>
                     <h1 class="col-span-3 md:text-center text-right">{{ invoice.clientName }}</h1>
-                    <h1 class="col-span-2"> 
+                    <h1 class="col-span-2">&#163; {{ sumOfTotals }}</h1>
+                    <!-- <h1 class="col-span-2"> 
                         <span class="flex items-center">
                             <p class="pr-2">&#163;</p>
                             <i class="fas fa-asterisk"></i>
@@ -69,7 +70,7 @@
                             <i class="fas fa-asterisk"></i>
                             <i class="fas fa-asterisk"></i>
                         </span>
-                    </h1>
+                    </h1> -->
                     
                      <div class="my-pending gap-2" :class="{'paid' : invoice.paid}">
                         <h1 class="my-circle h-2 w-2 "></h1>
@@ -95,6 +96,7 @@
 import Modal from './components/Modal.vue'
 export default {
     name: 'Invoice',
+    props: ['mode'],
     components: {
         Modal,
     },
@@ -199,7 +201,8 @@ export default {
 .fa-asterisk{
   font-size: 8px;
 }
-.my-iv-hold{
-    background:rgb(247, 247, 250);
+
+body{
+   background:rgb(247, 247, 250);
 }
 </style>

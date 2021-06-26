@@ -78,38 +78,9 @@
                             </div>
 
                             <h1 class="text-gray-400 font-bold py-5 text-xl">items List</h1>
-
-                        
-                        <div v-for="(addItem, counter) in addItems" :key="counter" class="flex justify-between items-center gap-4 pb-4">
-                    <div>
-                        <label class="text-sm">Item Name</label>
-                        <input type="text" class="input-group w-4/12" v-model="addItem.itemname">
-                    </div>
-                    <div>
-                            <label class="text-sm">Qty</label>
-                            <input type="number" class="input-group w-2/12" v-model="addItem.quantity">
-                    </div>
-                    <div>
-                            <label class="text-sm">Price</label>
-                            <input type="number" class="input-group w-2/12" v-model="addItem.price">
-                    </div>
-                        
-                    <div class="w-2/12">
-                            <label class="text-sm">Total</label>
-                            <input v-model="addItem.subTotal" disabled class="px-1 py-2 focus:outline-none border-none w-9/12" >
-                    </div>
-            
-                    <div class="w-2/12 cursor-pointer" @click="deleteItem(counter)"><img class="mx-auto mt-5" src="../assets/images/icon-delete.svg" alt="plus-icon" /></div>
-
-                </div>
-
-                <button  @click.prevent="AaddItem" class="mt-6 bg-red-500 text-white"> + Add Items</button>
-
-
-
-
+                            <AddItem :addItems="addItems" />
                             
-                 </div>      
+                </div>      
 
                     <div class="flex justify-between mt-10 md:w-8/12 w-full mx-auto">
                         <div class="">
@@ -140,10 +111,12 @@
 </template>
 
 <script>
+import AddItem from '../components/AddItem.vue'
 
 export default {
     name: 'Modal',
     components:{
+        AddItem
     },
     data() {
         return {
@@ -162,10 +135,8 @@ export default {
             clientPostCode:'', 
             invoiceDate: '', 
             description: '', 
-            addItems:[{
-                
-            }],
-            addItem : {
+            addItems:[{}],
+            addItem: {
                 itemname: '',
                 quantity:'',
                 price:'',
@@ -178,17 +149,6 @@ export default {
     },
 
     methods: {
-        AaddItem() {
-            this.addItem = ({
-               
-            })
-       
-        this.addItems.push(this.addItem)
-         console.log(this.addItems)
-        localStorage.setItem('invoices', JSON.stringify(this.invoices))
-        },
-
-
 
         saveInvoice() {
             this.invoice = ({
@@ -209,16 +169,7 @@ export default {
                 paid: false,
 
                 addItems: this.addItems,
-                // {
-                //     itemname: this.addItems[1].itemname,
-                //     quantity: this.addItems[1].quantity,
-                //     price   : this.addItems[1].price,
-                    
-                // }
-                
-                
-                
-               
+           
                  
             })
         
@@ -244,9 +195,7 @@ export default {
         },
 
          
-    deleteItem(counter){
-      this.addItems.splice(counter,1);
-    },
+    
     }
 }
 </script>
