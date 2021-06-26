@@ -96,7 +96,7 @@
                 <div class="ndiMpa rounded-b-2xl">
                     <div class="p-8 flex justify-between items-center ">
                         <p class="text-lg text-gray-100">Amount Due</p>
-                        <p ref="nkita" class="text-3xl font-bold text-white">&#163;{{ myNetTotal }}</p>
+                        <p ref="nkita" class="text-3xl font-bold text-white">&#163;{{ sumOfTotals }}</p>
                         <!-- <p class="text-3xl font-bold text-white">{{ invoice.netTotal}}</p> -->
                     </div>
                 </div>
@@ -240,7 +240,7 @@ export default {
         return{
             invoices:[],
             invoice: {},
-            showEdit: true,
+            showEdit: false,
             mode:'',
             myNetTotal:''
         }
@@ -299,8 +299,7 @@ export default {
     sumOfTotals () {
         if(this.invoice.hasOwnProperty("addItems")) {
         return this.invoice.addItems.reduce((sum, addItem) => {
-            this.myNetTotal = sum += addItem.subTotal;
-            return this.myNetTotal;
+             return sum += addItem.subTotal;
         }, 0);
       }
     },

@@ -12,39 +12,44 @@
                 <p class="sm:text-sm text-xs">There are total of <span class="text-semibold">{{ invoices.length}}</span> Invoice(s)</p>
             </div>
 
-            <!-- <div class="statusHolder sm:w-3/12 w-2/12">
+            <div class="status-holder">
 
-                <div @click="statusToggle" class="">
-                    <div v-if="!statusBar" class="flex sm:gap-4 gap-1 items-center cursor-pointer">
-                        <p class="sm:block hidden sm:text-sm text-xs font-bold">Filter by status</p>
-                        <p class="sm:hidden block sm:text-sm text-xs font-bold">Filter</p>
-                        <img class="mx-auto" src="./assets/images/icon-arrow-down.svg" alt="sideArrow" />
+                <div class="bg-white px-3 py-4">
+                   <!-- <div>
+                        <input  type="checkbox" name="status" @click.o="myFilter('paid')"/>
+                        <label class="font-bold text-xs pl-3" for="Paid">Paid</label>
                     </div>
-                    <div v-if="statusBar" class="flex sm:gap-4 gap-1 items-center cursor-pointer">
-                        <p class="sm:block hidden sm:text-sm text-xs font-bold">Filter by status</p>
-                        <p class="sm:hidden block sm:text-sm text-xs font-bold">Filter</p>
-                        <img class="mx-auto" src="./assets/images/icon-arrow-right.svg" alt="sideArrow" />
+                    <div class="py-2">
+                        <input type="checkbox" name="status" @click.o="myFilter('unpaid')"/>
+                        <label class="font-bold text-xs pl-3" for="Pending">Pending</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="status" @click.o="myFilter('draft')"/>
+                        <label class="font-bold text-xs pl-3" for="Pending">Draft</label>
+                    </div> -->
+
+                    <!-- <div>
+                        <input :disabled="true" type="checkbox" name="status" v-model="paid"/>
+                        <label class="font-bold text-xs pl-3" for="Paid">Paid</label>
+                    </div>
+                    <div class="py-2">
+                        <input type="checkbox" name="status" v-model="unpaid"/>
+                        <label class="font-bold text-xs pl-3" for="Pending">Pending</label>
+                    </div>
+                    <div class="py-2">
+                        <input type="checkbox" name="status" v-model="draft"/>
+                        <label class="font-bold text-xs pl-3" for="Pending">Draft</label>
+                    </div> -->
+
+                    <div v-for="(item, index) in itemlist" :key="index">
+                        <label><input type="checkbox" :value="index" name="invoices" v-model="selectedItems" :disabled="selectedItems.length >= max && selectedItems.indexOf(index) == -1" /> {{item}}</label>
                     </div>
                 </div>
 
-                <div v-if="statusBar" class="relative ">
-                    <div class="absolute rounded sm:pl-6 pl-2 pt-3 statusDrop px-8 shadow spartan">
-                            <div>
-                                <input  type="checkbox" name="status" v-model="paid"/>
-                                <label class="font-bold text-xs pl-3" for="Paid">Paid</label>
-                            </div>
-                            <div class="py-2">
-                                <input type="checkbox" name="status" v-model="unpaid"/>
-                                <label class="font-bold text-xs pl-3" for="Pending">Pending</label>
-                            </div>
-                    </div>
-                </div>
-                
-            </div>-->
+            </div>
 
 
-
-            <div @click="toggleModal" class="flex save-button gap-2 px-1 py-2 sm:w-2/12 w-3/12 rounded-3xl items-center justify-center">
+            <div @click="toggleModal" class="flex save-button gap-2 px-1 py-2 sm:w-2/12 w-3/12 rounded-3xl items-center justify-center cursor-pointer">
                 <h1 class="p-2 rounded-full bg-white"><img src="./assets/images/icon-plus.svg" alt="plus-icon" /></h1>
                 <Button text="New Invoice" class="sm:block hidden border-none text-white text-xs font-bold"/>
                 <Button text="New" class="sm:hidden block border-none text-white text-xs font-bold"/>
@@ -53,13 +58,13 @@
         </div>
 
             <div v-if="invoices" class="">
-                 <div v-for="invoice in invoices" :key="invoice.id" class="invoice">
+                 <div v-for="invoice in filteredInvoices" :key="invoice.id" class="invoice">
                 <router-link :to="{name: 'InvoiceDetails', params: { id: invoice.id }}">
                 <div class="grid grid-cols-12 items-center">
                     <h1 class="col-span-2"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
                     <h1 class="col-span-2">Due {{invoice.invoiceDate}}</h1>
                     <h1 class="col-span-3 md:text-center text-right">{{ invoice.clientName }}</h1>
-                    <h1 class="col-span-2">&#163; {{ sumOfTotals }}</h1>
+                    <!-- <h1 class="col-span-2">&#163; {{ sumOfTotals }}</h1> -->
                     <!-- <h1 class="col-span-2"> 
                         <span class="flex items-center">
                             <p class="pr-2">&#163;</p>
@@ -81,6 +86,7 @@
                 </router-link>
             </div>
             </div>
+
             <div v-else>
                 Loading...
             </div>
@@ -94,17 +100,32 @@
 
 <script>
 import Modal from './components/Modal.vue'
+import Button from './components/Button.vue'
 export default {
     name: 'Invoice',
     props: ['mode'],
     components: {
         Modal,
+        Button
     },
 
       data () {
+          
         return {
             invoices:[],
             showModal:false,
+            type:'',
+            paid:false,
+            unpaid:false,
+            draft:false,
+
+            selectedItems: [],
+            itemlist: [
+        		"paid",
+                "pending",
+                "draft"
+            ],
+            max: 1
         }
     },
 
@@ -115,10 +136,48 @@ export default {
     mounted() {
         this.invoices = JSON.parse(localStorage.getItem('invoices'))
     },
+
     methods: {
         toggleModal() {
             this.showModal = !this.showModal
         },
+
+        paid() {
+            console.log('yes')
+        },
+        unpaid() {
+            console.log('no')
+        },
+
+        myFilter(type) {
+          this.type = type
+      },
+    },
+
+    computed: {
+        // filteredInvoices() {
+        // return this.invoices.filter(invoice => {
+        //     switch(this.type) {
+        //         case 'unpaid':
+        //             return invoice.statusText === "Pending";
+        //         case 'paid':
+        //             return invoice.statusText === "Paid";
+        //         case 'draft':
+        //             return invoice.statusText === "Draft";
+        //         default:
+        //             return this.invoices
+        //     }
+        // })
+        // },
+
+        filteredInvoices() {
+           if(this.itemlist = "paid") {
+               return this.invoices.filter((invoice) => invoice.statusText === "Paid")} 
+           if(this.unpaid) {
+               return this.invoices.filter((invoice) => invoice.statusText === "Pending")}
+           if(this.draft) {return this.invoices.filter((invoice) => invoice.statusText === "Draft")}
+           else return this.invoices
+        },  
     }
 }
   

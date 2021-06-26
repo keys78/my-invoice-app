@@ -89,7 +89,7 @@
 
                         <div class="flex gap-4">
                             <div>
-                                <button class="draft-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</button>
+                                <div @click="saveInvoice1" class="draft-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</div>
                             </div>
 
                             <div>
@@ -183,6 +183,14 @@ export default {
                
             this.saveToLocalStorage();
            
+        },
+
+        saveInvoice1() {
+            this.invoice = ({
+                statusText: "Draft",
+                // paid: null
+            })
+        this.saveToLocalStorage();
         },
 
         pushToLocalStorage() { 
