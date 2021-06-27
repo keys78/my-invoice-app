@@ -66,7 +66,15 @@ import DarkModeButton from './components/DarkModeButton.vue'
       },
 
       nightMode() {
-       this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
+      //  this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
+       this.mode === 'dark' ? this.mode = 'light' : this.mode = 'light' ? this.mode = 'ice' : this.mode = 'dark'
+      //  if(this.mode === 'dark'){
+      //    this.mode = 'light'
+      //  } else if( this.mode = 'light') {
+      //    this.mode = 'ice'
+      //  } else{
+      //    this.mode = 'dark'
+      //  }
        localStorage.setItem('mode', this.mode)
       },
     }

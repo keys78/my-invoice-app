@@ -1,11 +1,11 @@
 <template>
-<div class="kolo" :class="mode">
+<div class="kolo">
      <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:4;">
       <div class="logo-holder rounded-r-2xl">
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
       </div>
       <div class="navHolders ">
-        <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/>
+        <!-- <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/> -->
         <div @click="openProfile" class="avatar  cursor-pointer">
           <img class="mx-auto rounded-full w-10" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
         </div>
@@ -293,8 +293,8 @@ export default {
             this.invoices = JSON.parse(localStorage.getItem('invoices'))
         }
            
-        this.currentmode = localStorage.getItem('mode')
-        this.mode = this.currentmode
+        // this.currentmode = localStorage.getItem('mode')
+        // this.mode = this.currentmode
     },
     
      mounted() {
@@ -331,10 +331,10 @@ export default {
             localStorage.setItem('invoices', JSON.stringify(this.invoices))
         },
 
-        nightMode() {
-            this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
-            localStorage.setItem('mode', this.mode)
-        },
+        // nightMode() {
+        //     this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
+        //     localStorage.setItem('mode', this.mode)
+        // },
 
         closeProfile() {this.showProfile = false},
 

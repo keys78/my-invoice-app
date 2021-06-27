@@ -148,7 +148,7 @@ export default {
     methods: {
         toggleModal() { this.showModal = !this.showModal },
 
-        statusToggle(){this.statusBar = !this.statusBar},
+        statusToggle(){ this.statusBar = !this.statusBar },
 
     },
 
@@ -182,12 +182,13 @@ export default {
 }
 .paid{
     /* padding: 17px 3px; */
-    background: rgba(123, 241, 87, 0.588);
-    color:rgb(0, 110, 18);
+    /* background: rgba(123, 241, 87, 0.588); */
+    background: rgba(10, 219, 45, 0.185);
+    color:rgb(8, 214, 42);
 }
 .paid .my-circle{
     border-radius: 99999px;
-    background: rgb(0, 110, 18);
+    background: rgb(8, 214, 42);
 }
 .my-circle {
     border-radius: 99999px;
