@@ -190,7 +190,7 @@ import DarkModeButton from './components/DarkModeButton.vue'
     height:55vh;
 }
   .invoice{
-    padding-right:5px;
+    padding-right:10px;
     padding-left:13px;
   }
   }

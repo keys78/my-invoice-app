@@ -14,15 +14,16 @@
             "invoiceDate": "2021-08-18", 
             "paymentTerms":1,
             "description": "Re-branding", 
-            "statusText": "'Pending'",
+            "statusText": "Paid",
             "paid": true,
             "showMarkBtn": false,
-            "addItems":[{}],
-            "addItem": {
-                "itemname": "Brand Guidelines",
-                "quantity":1,
-                "price":1800.90
-            },
-            "total":1800.90
+            "addItems":[
+                {
+                    "itemname": "Brand Guidelines",
+                    "quantity":1,
+                    "price":1800
+                }
+            ],
+            "total":1800
     }
 ]

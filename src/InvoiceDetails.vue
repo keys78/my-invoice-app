@@ -1,5 +1,5 @@
 <template>
-<div class="" :class="mode">
+<div class="kolo" :class="mode">
      <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:4;">
       <div class="logo-holder rounded-r-2xl">
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
@@ -83,25 +83,25 @@
             <div class="lakudo rounded-2xl">
                 <div class="pt-8 sm:pl-8 pl-2">
                 <div class="grid grid-cols-8 w-full">
-                    <p class="billTops font-semibold col-span-3">Item Name</p>
-                    <p class="billTops font-semibold col-span-2">QTY.</p>
-                    <p class="billTops font-semibold col-span-2">Price</p>
-                    <p class="billTops font-semibold col-span-1">Total</p>
+                    <p class="billTops font-semibold sm:col-span-3 col-span-6">Item Name</p>
+                    <p class="billTops sm:block hidden font-semibold col-span-2">QTY.</p>
+                    <p class="billTops sm:block hidden font-semibold col-span-2">Price</p>
+                    <p class="billTops font-semibold sm:col-span-1 col-span-2">Total</p>
                 </div>
 
                 <div v-for="(addItems, index) in invoice.addItems" :key="index" class="grid grid-cols-8 w-full py-4">
-                    <p class="billTops col-span-3">{{ addItems.itemname }}</p>
-                    <p class="billTops col-span-2">{{ addItems.quantity }}</p>
-                    <p class="billTops col-span-2">{{ addItems.price }}</p>
-                    <p class="billTops col-span-1">&#163;{{ addItems.subTotal = addItems.quantity*addItems.price }}</p>
+                    <p class="billTops sm:col-span-3 col-span-6">{{ addItems.itemname }}</p>
+                    <p class="billTops sm:block hidden col-span-2">{{ addItems.quantity }}</p>
+                    <p class="billTops sm:block hidden col-span-2">{{ addItems.price }}</p>
+                    <p class="billTops sm:col-span-1 col-span-2">&#163;{{ addItems.subTotal = addItems.quantity*addItems.price }}</p>
                 </div>
                 </div>
 
                 <div class="ndiMpa rounded-b-2xl">
-                    <div class="p-8 flex justify-between items-center ">
+                    <div class="py-8 px-2 flex justify-between items-center ">
                         <p class="text-lg text-gray-100">Amount Due</p>
-                        <p ref="nkita" class="text-3xl font-bold text-white">&#163;{{ sumOfTotals }}</p>
-                        <!-- <p class="text-3xl font-bold text-white">{{ invoice.netTotal}}</p> -->
+                        <p ref="nkita" class="text-3xl font-bold text-white">&#163;{{ invoice.netTotal = sumOfTotals }}</p>
+                        <!-- <p class="text-3xl font-bold text-white">{{ invoice.netTotal}}  {{ sumOfTotals }}</p> -->
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                 <button @click="editInvoice" class="discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
                 <div>
                     <button @click="deleteInvoice(invoice)" class=" delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
-                    <button @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
+                    <button v-if="invoice.showMarkBtn" @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
         <div v-else>
             Loading....
         </div>
-        
+        <p class="sm:pb-20 pb-8"></p>
     </section>
 
     <!--profile-->
@@ -270,17 +270,29 @@ export default {
         return{
             invoices:[],
             invoice: {
-                showMarkBtn:true
+                showMarkBtn:true,
+                netTotal:'',
             },
             showEdit: false,
             mode:'',
             myNetTotal:'',
             showProfile:false,
-            
         }
     },
 
     beforeMount() {
+        this.invoices = JSON.parse(localStorage.getItem('invoices'))
+
+        if (this.invoices === null) {
+            fetch('./db.json/') 
+            .then(res => { return res.json()})
+            .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
+            this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
+            })
+        } else {
+            this.invoices = JSON.parse(localStorage.getItem('invoices'))
+        }
+           
         this.currentmode = localStorage.getItem('mode')
         this.mode = this.currentmode
     },
@@ -333,10 +345,12 @@ export default {
     computed: {
     sumOfTotals () {
         if(this.invoice.hasOwnProperty("addItems")) {
-        return this.invoice.addItems.reduce((sum, addItem) => {
-             return sum += addItem.subTotal;
+        return this.invoice.addItems.reduce((sum, addItem) => { console.log(this.invoice.netTotal)
+             return this.invoice.netTotal = (sum += addItem.subTotal); 
         }, 0);
+        
       }
+      
     },
     
 }
@@ -441,8 +455,5 @@ export default {
 .dark .el-buttono{
     background: rgb(37, 41, 69);
 }
-/* .el-buttono-2{
-    display:none;
-} */
 
 </style>

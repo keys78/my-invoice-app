@@ -62,10 +62,10 @@
                     <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
                     <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
                     <h1 class="name-cont">{{ invoice.clientName }}</h1>
-                    <!-- <h1 class="col-span-2">&#163; {{sumOfTotals }}</h1> -->
+                    <!-- <h1 class="total-cont">&#163; {{ invoice.netTotal }}</h1> -->
                     <h1 class="total-cont"> 
-                        <span class="flex items-center">
-                            <p class="pr-2">&#163;</p>
+                        <span class="flex items-center font-bold text-2xl">
+                            <span class="pr-2">&#163;</span>
                             <i class="fas fa-asterisk"></i>
                             <i class="fas fa-asterisk"></i>
                             <i class="fas fa-asterisk"></i>
@@ -126,39 +126,36 @@ export default {
     },
 
     beforeMount() {
-        // this.invoices = JSON.parse(localStorage.getItem('invoices'))
-         this.myInvoices = JSON.parse(localStorage.getItem('invoices'))
-            if (this.myInvoices === null) {
-              fetch('./db.json/') 
-            .then(res => { return res.json()})
-            .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
-           this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
-            })
+         this.invoices = JSON.parse(localStorage.getItem('invoices'))
+
+            if (this.invoices === null) {
+                fetch('./db.json/') 
+                .then(res => { return res.json()})
+                .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
+                this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
+                localStorage.setItem('invoices', JSON.stringify(this.invoices))
+                })
            } else {
-               this.invoices = this.myInvoices
+                this.invoices = JSON.parse(localStorage.getItem('invoices'))
            }
+
     },
 
-    mounted() {
-        this.invoices = JSON.parse(localStorage.getItem('invoices'))
+    mounted(){
+        document.title = 'Total Invoices' + ' ' + '('+ this.invoices.length +')'
     },
 
     methods: {
-        toggleModal() {
-            this.showModal = !this.showModal
-        },
+        toggleModal() { this.showModal = !this.showModal },
 
         statusToggle(){this.statusBar = !this.statusBar},
 
-  
     },
 
     computed: {
         filteredInvoices() {
-           if(this.paid) 
-               return this.invoices.filter((invoice) => invoice.statusText === "Paid")
-           if(this.pending) {
-               return this.invoices.filter((invoice) => invoice.statusText === "Pending")}
+           if(this.paid) {return this.invoices.filter((invoice) => invoice.statusText === "Paid")}
+           if(this.pending) { return this.invoices.filter((invoice) => invoice.statusText === "Pending")}
            if(this.draft) {return this.invoices.filter((invoice) => invoice.statusText === "Draft")}
            else return this.invoices
         },  
@@ -172,7 +169,6 @@ export default {
 </script>
 
 <style>
-label {display: block}
 .my-pending{
     /* padding: 8px 1px; */
     background: rgba(250, 188, 96, 0.288);

@@ -89,7 +89,7 @@
 
                         <div class="flex gap-4">
                             <div>
-                                <button @click="saveAsDraft" class="draft-button cursor-pointer py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</button>
+                                <div @click="saveAsDraft" class="draft-button cursor-pointer py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</div>
                             </div>
 
                             <div>
@@ -146,7 +146,19 @@ export default {
     },
 
      beforeMount() {
+
         this.invoices = JSON.parse(localStorage.getItem('invoices'))
+
+        if (this.invoices === null) {
+            fetch('./db.json/') 
+            .then(res => { return res.json()})
+            .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
+            this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
+            localStorage.setItem('invoices', JSON.stringify(this.invoices))
+            })
+        } else {
+            this.invoices = JSON.parse(localStorage.getItem('invoices'))
+        }
     },
 
     methods: {
@@ -170,8 +182,10 @@ export default {
                 statusText: 'Pending',
                 paid: false,
                 showMarkBtn: true,
+                
 
                 addItems: this.addItems,
+                netTotal:'',
            
                  
             })
@@ -197,7 +211,7 @@ export default {
                 uniqueId += "DRAFT" + String(Math.random()).slice(2, 6);
                 this.invoice.id = uniqueId;
             this.saveToLocalStorage();
-            this.$router.push({ name: 'Home' })
+            this.$router.push({ name: 'InvoiceDetails' })
         },
 
         pushToLocalStorage() { 

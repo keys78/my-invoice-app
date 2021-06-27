@@ -16,7 +16,7 @@
             
             <div class="w-2/12">
                 <label class="text-sm">Total</label>
-                <input v-model="addItem.subTotal" disabled class="px-1 py-2 focus:outline-none border-none w-9/12" >
+                <input :value="addItem.quantity*addItem.price" disabled class="px-1 py-2 focus:outline-none border-none w-9/12" >
             </div>
       
             <div class="w-2/12 cursor-pointer" @click="deleteItem(counter)"><img class="mx-auto mt-5" src="../assets/images/icon-delete.svg" alt="plus-icon" /></div>
@@ -41,7 +41,7 @@ export default {
           
         }
     },
-
+    
     methods:{
 
       AddItem() {
