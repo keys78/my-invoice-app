@@ -1,7 +1,7 @@
 <template>
  <section :class="mode">
 
-   <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:1;">
+   <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:4;">
       <div class="logo-holder rounded-r-2xl">
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
       </div>
@@ -112,6 +112,10 @@ import DarkModeButton from './components/DarkModeButton.vue'
       height: 100vh;
     }
 
+    .mamalet{
+      background: rgba(0, 0, 0, 0.671);
+      color:white
+    }
     
     .apple{
       background:rgb(250, 247, 248);
@@ -155,21 +159,71 @@ import DarkModeButton from './components/DarkModeButton.vue'
       width:100%;
       padding-top:65px;
     }
-    /* .modalEdit{
+    .modalEdit{
       padding-top:65px;
-    } */
-    }.form-holder{
-      height:490px;
+      /* width: 100% */
+    }
+    .form-holder{
+    height:60vh;
+}
+  }
+
+  @media screen and (max-width: 630px) {
+    .el-buttono-2{
+     margin-top:20px;
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background:#F9FAFE;
+     padding:9px 5px;
+   }
+
+   .dark .el-buttono-2{
+     background:rgb(3, 1, 31);
+   }
+
+  }
+  @media screen and (max-width: 590px) {
+  .form-holder{
+    height:55vh;
+}
+  .invoice{
+    padding-right:5px;
+    padding-left:13px;
+  }
   }
   
-  @media screen and (max-width: 590px) {
-   .el-buttono{
-     position: absolute;
-     bottom: 0;
-     background: #fff;
-     padding:20px 0;
-     margin-bottom: -300px;
-     width: 100%;
-     margin-left: -40px;
-   }}
+
+
+  @media screen and (max-width: 700px) {
+    .invoice-holder{
+    display: grid;
+    justify-content: end;
+    align-items: flex-end;
+    
+    grid-template-columns: repeat(2, 1fr);
+    }
+    .id-cont{
+        grid-column: span 1;
+    }
+    .date-cont{
+        grid-column: span 1;
+        text-align: right;
+    }
+    .name-cont{
+        grid-column: span 2;
+        
+    }
+    .total-cont{
+        grid-column: span 1;
+    }
+    .status-cont{
+        grid-column: span 1;
+        margin:0 auto;
+        margin-right: 0px;
+    }
+   
+   
+   }
 </style>

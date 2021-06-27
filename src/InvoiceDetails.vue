@@ -1,19 +1,19 @@
 <template>
-<div class="apple h-full" :class="mode">
-     <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:1;">
+<div class="" :class="mode">
+     <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:4;">
       <div class="logo-holder rounded-r-2xl">
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
       </div>
       <div class="navHolders ">
         <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/>
-        <!-- <div @click="openProfile" class="avatar  cursor-pointer"> -->
+        <div @click="openProfile" class="avatar  cursor-pointer">
           <img class="mx-auto rounded-full w-10" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
-        <!-- </div> -->
+        </div>
       </div>
     </div>
 
 
-    <section class="w-5/12 mx-auto">
+    <section class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16">
         <button class="py-3 mt-12 rounded-2xl sm:px-6 px-2"><router-link class="flex items-center gap-4" to="/">
             <img class="mx-auto" src="./assets/images/icon-arrow-left.svg" alt="sideArrow" />
             <p class="text-black lightio">Go Back</p>
@@ -23,12 +23,16 @@
         <div class="sm:flex justify-between items-center invoice-inherit">
             <div class="flex justify-between gap-5 items-center">
                 <h1>Status</h1>
-                <div class="my-pending gap-2" :class="{'paid' : invoice.paid}">
-                    <h1 class="my-circle h-2 w-2 "></h1>
-                    <h1>{{ invoice.statusText }}</h1>
+                <div class="relative">
+                    <div class="my-pending py-5" :class="{'paid' : invoice.paid}">
+                        <div class="absolute flex gap-2 items-center">
+                            <h1 class="my-circle h-2 w-2 "></h1>
+                            <h1>{{ invoice.statusText }}</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="el-buttono">
+            <div class="el-buttono sm:flex hidden">
                 <button @click="editInvoice" class="sm:ml-0 ml-7 discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
                 <button @click="deleteInvoice(invoice)" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
                 <button @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
@@ -103,24 +107,50 @@
             </div>
 
           </div>
+            <div class="el-buttono-2 sm:hidden flex">
+                <button @click="editInvoice" class="discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
+                <div>
+                    <button @click="deleteInvoice(invoice)" class=" delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+                    <button @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
+                </div>
+            </div>
         </div>
+
+        
         
         <div v-else>
             Loading....
         </div>
         
     </section>
+
+    <!--profile-->
+    <div v-if="showProfile" @click.self="closeProfile" class="mamalet w-full fixed top-0 left-0 h-screen p-10 mx-auto rounded-3xl animate__animated animate__zoomInDown">
+      <div class="mt-40 xl:w-4/12 md:w-6/12 sm:w-8/12 w-11/12 mx-auto">
+        <img class="mx-auto rounded-full w-40" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
+        <h1 class="text-3xl py-4 text-center">Emcodes</h1>
+        <div class="mx-auto text-center w-5/12">
+          <div class="flex items-center hover:text-yellow-600 gap-5"><a class="pb-2" href="https://twitter.com/Emmy31087589">Connect with me</a><img class="w-4" src="./assets/images/icon-external-link.svg" alt="link" /></div>
+          <div class="flex items-center hover:text-yellow-600 gap-5"><a href="https://github.com/Em-codes/invoice-app">Github Repo</a><img class="w-4" src="./assets/images/icon-external-link.svg" alt="link" /></div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
         <!--EditModal-->
     <section>
         <div v-if="showEdit">
         <div class="backdrop" @click.self="editInvoice">
-        <div class="modalEdit spartan h-screen rounded-r-2xl">
+        <div class="modal w-6/12 spartan h-screen rounded-r-2xl">
 
             
-                <h1 class="py-12 md:w-9/12 w-full pl-6 mx-auto text-2xl font-semibold">Edit #{{ id }}</h1>
+                <h1 class="py-12 md:w-9/12 w-full pl-6 mx-auto text-2xl font-medium">Edit Invoice #{{ id }}</h1>
 
                     <form @submit="saveChanges">
-                    <div class="form-holder md:w-9/12 w-full md:pl-6 pl-2 mx-auto overflow-y-scroll">
+                    <div class="form-holder md:w-9/12 w-11/12 md:pl-6 pl-2 mx-auto overflow-y-scroll">
                         <h2 class="text-sm font-bold mini-headers pb-6">Bill from</h2>
 
                         <label class="text-sm">Street Address</label>
@@ -242,7 +272,8 @@ export default {
             invoice: {},
             showEdit: false,
             mode:'',
-            myNetTotal:''
+            myNetTotal:'',
+            showProfile:false
         }
     },
 
@@ -292,6 +323,14 @@ export default {
             this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
             localStorage.setItem('mode', this.mode)
         },
+
+        closeProfile() {
+            this.showProfile = false
+        },
+
+        openProfile() {
+             this.showProfile = !this.showProfile
+      }
     },
 
 
@@ -312,9 +351,13 @@ export default {
 
 <style>
 
+/* body{
+    background: red;
+} */
+
  .modalEdit{
     background: #fff;
-    width: 50vw;
+    width: 50%;
     transition: background 0.5s ease-in-out;
  }
  .dark .modalEdit{
@@ -402,6 +445,8 @@ export default {
 .dark .el-buttono{
     background: rgb(37, 41, 69);
 }
-
+/* .el-buttono-2{
+    display:none;
+} */
 
 </style>

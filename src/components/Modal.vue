@@ -2,11 +2,11 @@
 <div>
     <div class="backdrop" @click.self="$emit('close')">
         <div class="modal w-6/12">
-        <h1 class="py-12 pl-24 mx-auto text-2xl font-semibold">Create Invoice</h1>
+        <h1 class="pt-12 pb-12 sm:pb-6 md:pl-28 pl-6 mx-auto text-2xl font-semibold">Create Invoice</h1>
 
         <div class="">
             <form @submit="saveInvoice">
-                 <div class="form-holder md:w-9/12 w-full md:pl-6 pl-2 mx-auto overflow-y-scroll">
+                 <div class="form-holder md:w-9/12 w-11/12 md:pl-6 pl-2 mx-auto overflow-y-scroll">
                     <h2 class="text-sm font-bold mini-headers pb-6">Bill from</h2>
 
                     <label class="text-sm">Street Address</label>
@@ -82,14 +82,14 @@
                             
                 </div>      
 
-                    <div class="flex justify-between mt-10 md:w-8/12 w-full mx-auto">
+                    <div class="flex justify-between mt-10 md:w-8/12 w-11/12 mx-auto">
                         <div class="">
-                            <button @click.self="$emit('close')" class="discard-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Discard</button>
+                            <button @click.self="$emit('close')" class="discard-button py-4 px-4 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Discard</button>
                         </div>
 
                         <div class="flex gap-4">
                             <div>
-                                <div @click="saveInvoice1" class="draft-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</div>
+                                <div @click="saveAsDraft" class="draft-button cursor-pointer py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</div>
                             </div>
 
                             <div>
@@ -134,6 +134,7 @@ export default {
             clientCountry:'', 
             clientPostCode:'', 
             invoiceDate: '', 
+            paymentTerms:'',
             description: '', 
             addItems:[{}],
             addItem: {
@@ -164,6 +165,7 @@ export default {
                 clientCountry: this.clientCountry, 
                 clientPostCode: this.clientPostCode, 
                 invoiceDate: this.invoiceDate, 
+                paymentTerms: this.paymentTerms,
                 description: this.description, 
                 statusText: 'Pending',
                 paid: false,
@@ -185,11 +187,17 @@ export default {
            
         },
 
-        saveInvoice1() {
+        saveAsDraft() {
             this.invoice = ({
                 statusText: "Draft",
                 // paid: null
             })
+                let uniqueId = ''
+                let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
+                uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
+                uniqueId += String(Math.random()).slice(2, 6);
+                this.invoice.id = uniqueId;
         this.saveToLocalStorage();
         },
 
@@ -215,6 +223,7 @@ export default {
     position: fixed;
     top:0;
     background: rgba(0,0,0,0.4);
+    z-index: 1;
     
 }
 .input-group{
@@ -240,6 +249,21 @@ export default {
 }.form-holder{
     height:70vh;
 }
+
+.form-holder::-webkit-scrollbar {
+    width: 0.4em;
+  }
+
+.form-holder::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px hsl(192, 100%, 67%)
+  }
+
+.form-holder::-webkit-scrollbar-thumb {
+    background: #7c5dfa;
+    border-radius: 4px;
+  }
+
+
 
 .save-button{
      background:#7c5dfa;
