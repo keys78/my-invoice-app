@@ -62,7 +62,7 @@
                     <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
                     <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
                     <h1 class="name-cont">{{ invoice.clientName }}</h1>
-                    <!-- <h1 class="col-span-2">&#163; {{ sumOfTotals }}</h1> -->
+                    <!-- <h1 class="col-span-2">&#163; {{sumOfTotals }}</h1> -->
                     <h1 class="total-cont"> 
                         <span class="flex items-center">
                             <p class="pr-2">&#163;</p>
@@ -107,7 +107,7 @@ import Modal from './components/Modal.vue'
 import Button from './components/Button.vue'
 export default {
     name: 'Invoice',
-    props: ['mode'],
+    props: ['mode',],
     components: {
         Modal,
         Button
@@ -126,7 +126,17 @@ export default {
     },
 
     beforeMount() {
-        this.invoices = JSON.parse(localStorage.getItem('invoices'))
+        // this.invoices = JSON.parse(localStorage.getItem('invoices'))
+         this.myInvoices = JSON.parse(localStorage.getItem('invoices'))
+            if (this.myInvoices === null) {
+              fetch('./db.json/') 
+            .then(res => { return res.json()})
+            .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
+           this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
+            })
+           } else {
+               this.invoices = this.myInvoices
+           }
     },
 
     mounted() {

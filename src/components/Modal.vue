@@ -56,11 +56,11 @@
                     </div>
 
                         <div class="flex justify-between gap-4 mt-5">
-                            <div>
+                            <div class="w-5/12">
                                 <label class="text-sm">Invoice Date</label>
                                 <input v-model="invoiceDate" type="date" class="input-group">
                             </div>
-                            <div>
+                            <div  class="w-5/12">
                                 <label class="text-sm">Payment Terms</label>
                                 <select v-model="paymentTerms" type="text" class="input-group">
                                 <option value="Net 1 Day">Net 1 Day</option>
@@ -89,7 +89,7 @@
 
                         <div class="flex gap-4">
                             <div>
-                                <div @click="saveAsDraft" class="draft-button cursor-pointer py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</div>
+                                <button @click="saveAsDraft" class="draft-button cursor-pointer py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none bg-black text-white">Save as Draft</button>
                             </div>
 
                             <div>
@@ -169,6 +169,7 @@ export default {
                 description: this.description, 
                 statusText: 'Pending',
                 paid: false,
+                showMarkBtn: true,
 
                 addItems: this.addItems,
            
@@ -193,12 +194,10 @@ export default {
                 // paid: null
             })
                 let uniqueId = ''
-                let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
-                uniqueId += letters.charAt(Math.floor(Math.random() * letters.length))
-                uniqueId += String(Math.random()).slice(2, 6);
+                uniqueId += "DRAFT" + String(Math.random()).slice(2, 6);
                 this.invoice.id = uniqueId;
-        this.saveToLocalStorage();
+            this.saveToLocalStorage();
+            this.$router.push({ name: 'Home' })
         },
 
         pushToLocalStorage() { 
@@ -305,6 +304,7 @@ export default {
     background: white;
     color:black;
     transition: background 0.5s ease-in-out;
+    border-radius: 20px;
 }
  .dark .modal{
      background:rgb(20, 22, 37);

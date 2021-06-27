@@ -1,0 +1,28 @@
+[
+    {
+            "id": "RT3080",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "Jensen Huang", 
+            "clientEmail": "jensenh@mail.com", 
+            "clientStreetAddress":"106 Kendell Street",
+            "clientCity":"Sharrington", 
+            "clientCountry":"United kingdom", 
+            "clientPostCode":"NR24 5WQ", 
+            "invoiceDate": "2021-08-18", 
+            "paymentTerms":1,
+            "description": "Re-branding", 
+            "statusText": "'Pending'",
+            "paid": true,
+            "showMarkBtn": false,
+            "addItems":[{}],
+            "addItem": {
+                "itemname": "Brand Guidelines",
+                "quantity":1,
+                "price":1800.90
+            },
+            "total":1800.90
+    }
+]

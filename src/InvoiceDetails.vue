@@ -35,7 +35,7 @@
             <div class="el-buttono sm:flex hidden">
                 <button @click="editInvoice" class="sm:ml-0 ml-7 discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
                 <button @click="deleteInvoice(invoice)" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
-                <button @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
+                <button v-if="invoice.showMarkBtn" @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
             </div>
         </div>
 
@@ -200,11 +200,11 @@
                             </div>
 
                             <div class="flex justify-between gap-4 mt-5">
-                                <div>
+                                <div class="w-5/12">
                                     <label class="text-sm">Invoice Date</label>
                                     <input v-model="invoice.invoiceDate" type="date" class="input-group">
                                 </div>
-                                <div>
+                                <div class="w-5/12">
                                     <label class="text-sm">Payment Terms</label>
                                     <select v-model="invoice.paymentTerms" type="text" class="input-group">
                                     <option value="Net 1 Day">Net 1 Day</option>
@@ -261,7 +261,7 @@ import AddItem from './components/AddItem.vue'
 
 export default {
     name: 'InvoiceDetails',
-    props: ["id"],
+    props: ["id",],
     components: {
         DarkModeButton,
         AddItem
@@ -269,11 +269,14 @@ export default {
     data() {
         return{
             invoices:[],
-            invoice: {},
+            invoice: {
+                showMarkBtn:true
+            },
             showEdit: false,
             mode:'',
             myNetTotal:'',
-            showProfile:false
+            showProfile:false,
+            
         }
     },
 
@@ -301,19 +304,16 @@ export default {
             this.$router.push({ name: 'Home' })
         },
 
-        editInvoice() {
-            this.showEdit = !this.showEdit
-        },
+        editInvoice() {this.showEdit = !this.showEdit},
 
-        closeModal() {
-            this.showEdit = !this.showEdit
-        },
+        closeModal() {this.showEdit = !this.showEdit},
 
         saveChanges() {
             localStorage.setItem('invoices', JSON.stringify(this.invoices))
         },
 
         markAsPaid() {
+            this.invoice.showMarkBtn = false;
             this.invoice.paid = true
             this.invoice.statusText = 'Paid'
             localStorage.setItem('invoices', JSON.stringify(this.invoices))
@@ -324,13 +324,9 @@ export default {
             localStorage.setItem('mode', this.mode)
         },
 
-        closeProfile() {
-            this.showProfile = false
-        },
+        closeProfile() {this.showProfile = false},
 
-        openProfile() {
-             this.showProfile = !this.showProfile
-      }
+        openProfile() { this.showProfile = !this.showProfile }
     },
 
 
