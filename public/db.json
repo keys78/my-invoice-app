@@ -6,13 +6,13 @@
             "postCode": "E1 3EZ", 
             "country": "United Kingdom", 
             "clientName": "Jensen Huang", 
-            "clientEmail": "jensenh@mail.com", 
+            "clientEmail": "jensenh@gmail.com", 
             "clientStreetAddress":"106 Kendell Street",
             "clientCity":"Sharrington", 
             "clientCountry":"United kingdom", 
             "clientPostCode":"NR24 5WQ", 
             "invoiceDate": "2021-08-18", 
-            "paymentTerms":1,
+            "paymentTerms":"2021-08-19",
             "description": "Re-branding", 
             "statusText": "Paid",
             "paid": true,
@@ -25,5 +25,218 @@
                 }
             ],
             "total":1800
+    },
+    {
+            "id": "XM9141",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "Alex Grim", 
+            "clientEmail": "alexgrim@gmail.com", 
+            "clientStreetAddress":"84 Church Way",
+            "clientCity":"Bradford", 
+            "clientCountry":"United kingdom", 
+            "clientPostCode":"BD1 9PB", 
+            "invoiceDate": "2021-08-21", 
+            "paymentTerms":"2021-09-20",
+            "description": "Graphic Design", 
+            "statusText": "Pending",
+            "paid":false,
+            "showMarkBtn": true,
+            "addItems":[
+                {
+                    "itemname": "Banner Design",
+                    "quantity": 1,
+                    "price": 156.00,
+                    "total": 156.00
+                },
+                {
+                    "itemname": "Email Design",
+                    "quantity": 2,
+                    "price": 200.00,
+                    "total": 400.00
+                }
+            ],
+            "total":556.00
+    },
+    {
+            "id": "RG0314",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "John Morrison", 
+            "clientEmail": "jm@myco.com", 
+            "clientStreetAddress":"79 Dover Road",
+            "clientCity":"Westhall", 
+            "clientCountry":"United kingdom", 
+            "clientPostCode":"IP19 3PF", 
+            "invoiceDate": "2021-09-24", 
+            "paymentTerms":"2021-10-01",
+            "description": "Website Redesign", 
+            "statusText": "Paid",
+            "paid":true,
+            "showMarkBtn": false,
+            "addItems":[
+                {
+                    "itemname": "Website Redesign",
+                    "quantity": 1,
+                    "price": 1402.3,
+                    "total": 1402.3
+                }
+            ],
+            "total":1402.3
+    },
+    {
+            "id": "RT2080",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "Alyssa Werner", 
+            "clientEmail": "alyssa@email.co.uk", 
+            "clientStreetAddress":"63 Warwick Road",
+            "clientCity":"Carlisle", 
+            "clientCountry":"United kingdom", 
+            "clientPostCode":"CA20 2TG", 
+            "invoiceDate": "2021-10-11", 
+            "paymentTerms":"2021-10-12",
+            "description": "Logo Concept", 
+            "statusText": "Paid",
+            "paid":true,
+            "showMarkBtn": false,
+            "addItems":[
+                {
+                    "itemname": "Logo Sketches",
+                    "quantity": 1,
+                    "price": 102.04,
+                    "total": 102.04
+                }
+            ],
+            "total":102.04
+    },
+    {
+            "id": "AA1449",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "Mellisa Clarke", 
+            "clientEmail": "mellisa.clarke@me.com", 
+            "clientStreetAddress":"46 Abbey Row",
+            "clientCity":"Cambridge", 
+            "clientCountry":"United kingdom", 
+            "clientPostCode":"CB5 6EG", 
+            "invoiceDate": "2021-10-7", 
+            "paymentTerms":"2021-10-14",
+            "description": "Re-branding", 
+            "statusText": "Pending",
+            "paid":false,
+            "showMarkBtn": true,
+            "addItems":[
+                {
+                    "itemname": "New Logo",
+                    "quantity": 1,
+                    "price": 1532.3,
+                    "total": 1532.3
+                },
+                {
+                    "itemname": "Brand Guidelines",
+                    "quantity": 1,
+                    "price": 2500.00,
+                    "total": 2500.00
+                }
+            ],
+            "total":4032.3
+    },
+    {
+            "id": "TY9141",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "Thomas Wayne", 
+            "clientEmail": "thomas@dc.com", 
+            "clientStreetAddress":"3964  Queens Lane",
+            "clientCity":"Gotham", 
+            "clientCountry":"United States of America", 
+            "clientPostCode":"60457", 
+            "invoiceDate": "2021-10-01", 
+            "paymentTerms":"2021-10-31",
+            "description": "Landing Page Design", 
+            "statusText": "Pending",
+            "paid":false,
+            "showMarkBtn": true,
+            "addItems":[
+                {
+                    "name": "Web Design",
+                    "quantity": 1,
+                    "price": 6155.9,
+                    "total": 6155.9
+                }
+            ],
+            "total":6155.9
+    },
+    {
+            "id": "EMCODES-01",
+            "streetAddress":"Choba, Port Harcourt",
+            "city":"Port Harcourt",
+            "postCode": "100010", 
+            "country": "Nigeria", 
+            "clientName": "Ejimofor Hannah", 
+            "clientEmail": "thegoat@amaka.com", 
+            "clientStreetAddress":"New Layout, Mgbaoba Rd.",
+            "clientCity":"Port Harcourt", 
+            "clientCountry":"Nigeria", 
+            "clientPostCode":"MG 23E3", 
+            "invoiceDate": "2021-12-12", 
+            "paymentTerms":"2021-12-25",
+            "description": "Sharwama & Cosmetics procurement", 
+            "statusText": "Pending",
+            "paid":false,
+            "showMarkBtn": true,
+            "addItems":[
+                {
+                    "itemname": "sharwama",
+                    "quantity": 5,
+                    "price": 10,
+                    "total":50
+                },
+                {
+                    "itemname": "pallete brush",
+                    "quantity": 3,
+                    "price": 50,
+                    "total":150
+                }
+            ],
+            "total":150
+    },
+    {
+            "id": "DRAFT9732",
+            "streetAddress":"19 Union Terrace",
+            "city":"London",
+            "postCode": "E1 3EZ", 
+            "country": "United Kingdom", 
+            "clientName": "Anita Wainwright", 
+            "clientEmail": "", 
+            "clientStreetAddress":"",
+            "clientCity":"", 
+            "clientCountry":"", 
+            "clientPostCode":"", 
+            "invoiceDate": "2021-11-05", 
+            "paymentTerms":"2021-11-12",
+            "description": "Logo Re-design", 
+            "statusText": "Draft",
+            "paid":false,
+            "addItems":[
+                {
+                    "itemname": "Logo Re-design",
+                    "quantity": 1,
+                    "price": 3102.4,
+                    "total": 3102.4
+                }
+            ],
+            "total":3102.4
     }
 ]

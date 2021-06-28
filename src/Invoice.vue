@@ -64,8 +64,8 @@
                         <h1 class="name-cont">{{ invoice.clientName }}</h1>
                         <!-- <h1 class="total-cont">&#163; {{ invoice.netTotal }}</h1> -->
                         <h1 class="total-cont"> 
-                            <span class="flex items-center font-bold text-2xl">
-                                <span class="pr-2">&#163;</span>
+                            <span class="flex items-center font-semibold text-2xl">
+                                <span class="pr-1">&#163;</span>
                                 <i class="fas fa-asterisk"></i>
                                 <i class="fas fa-asterisk"></i>
                                 <i class="fas fa-asterisk"></i>
@@ -76,7 +76,7 @@
                         </h1>
                         
                         <div class="flex gap-3 items-center status-cont">
-                        <div class="relative">
+                        <div class="relative" :class="{'draft' : invoice.draftio}">
                             <div class="my-pending py-5" :class="{'paid' : invoice.paid}">
                                 <div class="absolute flex gap-2 items-center">
                                     <h1 class="my-circle h-2 w-2 "></h1>
@@ -170,8 +170,7 @@ export default {
 
 <style>
 .my-pending{
-    /* padding: 8px 1px; */
-    background: rgba(250, 188, 96, 0.288);
+    background: rgba(250, 188, 96, 0.13);
     color: #ff5e00;
     font-weight: 500;
     width: 110px;
@@ -180,20 +179,38 @@ export default {
     align-items: center;
     border-radius: 5px;
 }
+.my-circle {
+    border-radius: 99999px;
+    background: rgb(255, 115, 0);
+}
+
+.draft{
+    background: rgba(0, 0, 0, 0.151);
+     border-radius: 5px;
+}
+.draft h1{
+    color:rgb(0, 0, 0);
+}
+.draft .my-circle {
+    background: #000;
+    border-radius: 99999px;
+}
+.dark .draft h1{
+    color:rgb(246, 251, 255);
+}
+.dark .draft .my-circle{
+    background:rgb(246, 251, 255);
+}
+
 .paid{
-    /* padding: 17px 3px; */
-    /* background: rgba(123, 241, 87, 0.588); */
-    background: rgba(10, 219, 45, 0.185);
+    background: rgba(10, 219, 45, 0.075);
     color:rgb(8, 214, 42);
 }
 .paid .my-circle{
     border-radius: 99999px;
     background: rgb(8, 214, 42);
 }
-.my-circle {
-    border-radius: 99999px;
-    background: rgb(255, 115, 0);
-}
+
 
 
 .invoice{
@@ -210,10 +227,10 @@ export default {
   transition: 0.2s linear;
 
 }
-/* .invoice:hover{
+.invoice:hover{
  margin-left:-20px;
  transition: linear 0.2s;
-} */
+}
 .dark .invoice{
   background:#1E2139;
   color:#eff1ff;

@@ -38,20 +38,20 @@ export default {
 
     data() {
         return {
-          
+        
         }
     },
-    
+
     methods:{
 
       AddItem() {
-      this.addItem = ({})
-      this.addItems.push(this.addItem)
+        this.addItem = ({})
+        this.addItems.push(this.addItem)
       },
 
-    deleteItem(counter){
-      this.addItems.splice(counter,1);
-    },
+      deleteItem(counter){
+        this.addItems.splice(counter,1);
+      },
 
     },  
    

@@ -13,7 +13,7 @@
     </div>
 
 
-    <section class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16  animate__animated animate__fadeInUp  ">
+    <section class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16  animate__animated animate__fadeIn animated__slower">
         <button class="py-3 mt-12 rounded-2xl sm:px-6 px-2"><router-link class="flex items-center gap-4" to="/">
             <img class="mx-auto" src="./assets/images/icon-arrow-left.svg" alt="sideArrow" />
             <p class="text-black lightio">Go Back</p>
@@ -34,7 +34,7 @@
             </div>
             <div class="el-buttono sm:flex hidden">
                 <button @click="editInvoice" class="sm:ml-0 ml-7 discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
-                <button @click="deleteInvoice(invoice)" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+               <button @click="deleteModal" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
                 <button v-if="invoice.showMarkBtn" @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
             </div>
         </div>
@@ -99,8 +99,8 @@
 
                 <div class="ndiMpa rounded-b-2xl">
                     <div class="py-8 px-2 flex justify-between items-center ">
-                        <p class="text-lg text-gray-100">Amount Due</p>
-                        <p ref="nkita" class="text-3xl font-bold text-white">&#163;{{ invoice.netTotal = sumOfTotals }}</p>
+                        <p class="sm:text-lg text-base text-gray-100">Amount Due</p>
+                        <p ref="nkita" class="sm:text-3xl text-2xl font-bold text-white">&#163;{{ invoice.netTotal = sumOfTotals }}</p>
                         <!-- <p class="text-3xl font-bold text-white">{{ invoice.netTotal}}  {{ sumOfTotals }}</p> -->
                     </div>
                 </div>
@@ -110,7 +110,7 @@
             <div class="el-buttono-2 sm:hidden flex">
                 <button @click="editInvoice" class="discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
                 <div>
-                    <button @click="deleteInvoice(invoice)" class=" delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+                    <button @click="deleteModal" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
                     <button v-if="invoice.showMarkBtn" @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
                 </div>
             </div>
@@ -136,7 +136,20 @@
       </div>
   </div>
 
-
+    <!--delete Cofirmation-->
+    <div v-if="deleteModali" @click.self="cancelBtn" class="backdrop ">
+        <div class="deletie bg-white xl:w-4/12 md:w-6/12 sm:w-8/12 w-11/12 sm:p-10 p-5 mx-auto mt-64 rounded-3xl animate__animated animate__fadeIn animated__faster">
+            <h1 class="text-black deletie text-3xl font-bold pb-2">Confirm Deletion</h1>
+            <h1 class="pb-6">Are you sure you want to delete invoice no #{{ id }}. This action cannot be undone.</h1>
+            <div class="flex justify-between items-center">
+                <div><!--empty--></div>
+                <div>
+                    <button @click="cancelBtn" class="discard-button py-4 px-4 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Cancel</button>
+                    <button @click="deleteInvoice(invoice)" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -277,6 +290,7 @@ export default {
             mode:'',
             myNetTotal:'',
             showProfile:false,
+            deleteModali:false,
         }
     },
 
@@ -316,10 +330,6 @@ export default {
             this.$router.push({ name: 'Home' })
         },
 
-        editInvoice() {this.showEdit = !this.showEdit},
-
-        closeModal() {this.showEdit = !this.showEdit},
-
         saveChanges() {
             localStorage.setItem('invoices', JSON.stringify(this.invoices))
         },
@@ -336,16 +346,24 @@ export default {
             localStorage.setItem('mode', this.mode)
         },
 
+        editInvoice() {this.showEdit = !this.showEdit},
+
+        closeModal() {this.showEdit = !this.showEdit},
+
         closeProfile() {this.showProfile = false},
 
-        openProfile() { this.showProfile = !this.showProfile }
+        openProfile() { this.showProfile = !this.showProfile },
+
+        deleteModal() {this.deleteModali = true},
+
+        cancelBtn() {this.deleteModali = false},
     },
 
 
     computed: {
     sumOfTotals () {
         if(this.invoice.hasOwnProperty("addItems")) {
-        return this.invoice.addItems.reduce((sum, addItem) => { console.log(this.invoice.netTotal)
+        return this.invoice.addItems.reduce((sum, addItem) => {
              return this.invoice.netTotal = (sum += addItem.subTotal); 
         }, 0);
         

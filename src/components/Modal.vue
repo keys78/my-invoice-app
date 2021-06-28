@@ -10,59 +10,59 @@
                     <h2 class="text-sm font-bold mini-headers pb-6">Bill from</h2>
 
                     <label class="text-sm">Street Address</label>
-                    <input v-model="streetAddress" type="text" class="input-group">
+                    <input v-model="streetAddress" type="text" class="input-group" @blur="handleBlur">
 
                     <div class="flex justify-between gap-4 mt-5">
                         <div>
                             <label class="text-sm">City</label>
-                            <input v-model="city" type="text" class="input-group">
+                            <input v-model="city" type="text" class="input-group" @blur="handleBlurCity">
                         </div>
                         <div>
                             <label class="text-sm">Postcode</label>
-                            <input v-model="postCode" type="text" class="input-group">
+                            <input v-model="postCode" type="text" class="input-group"  @blur="handleBlurpCode">
                         </div>
                         <div>
                             <label class="text-sm">Country</label>
-                            <input v-model="country" type="text" class="input-group">
+                            <input v-model="country" type="text" class="input-group" @blur="handleBlurCountry">
                         </div>
                     </div>
                         <!--from-->
                         <h2 class="mt-8 text-sm font-bold mini-headers pb-6">Bill from</h2>
 
                         <label class="text-sm">Client's Name</label>
-                        <input v-model="clientName" type="text" class="input-group">
+                        <input v-model="clientName" type="text" class="input-group"  @blur="handleBlurcName">
 
                         <div class="py-4">
                             <label class="text-sm pt-4">Client's Email</label>
-                            <input v-model="clientEmail" type="text" class="input-group mb-4">
+                            <input v-model="clientEmail" type="text" class="input-group mb-4" @blur="handleBlurcMail">
                         </div>
 
                         <label class="text-sm">Street Address</label>
-                        <input v-model="clientStreetAddress" type="text" class="input-group">
+                        <input v-model="clientStreetAddress" type="text" class="input-group"  @blur="handleBlurcSA">
 
                         <div class="flex justify-between gap-4 mt-5">
                             <div>
                                 <label class="text-sm">City</label>
-                                <input v-model="clientCity" type="text" class="input-group">
+                                <input v-model="clientCity" type="text" class="input-group" @blur="handleBlurcCity">
                             </div>
                             <div>
                                 <label class="text-sm">Postcode</label>
-                                <input v-model="clientPostCode" type="text" class="input-group">
+                                <input v-model="clientPostCode" type="text" class="input-group"  @blur="handleBlurcpCode">
                             </div>
                             <div>
                                 <label class="text-sm">Country</label>
-                                <input v-model="clientCountry" type="text" class="input-group">
+                                <input v-model="clientCountry" type="text" class="input-group"  @blur="handleBlurcCountry">
                             </div>
                     </div>
 
                         <div class="flex justify-between gap-4 mt-5">
                             <div class="w-5/12">
                                 <label class="text-sm">Invoice Date</label>
-                                <input v-model="invoiceDate" type="date" class="input-group">
+                                <input v-model="invoiceDate" type="date" class="input-group"  @blur="handleBlurivDate">
                             </div>
                             <div  class="w-5/12">
                                 <label class="text-sm">Payment Terms</label>
-                                <select v-model="paymentTerms" type="text" class="input-group">
+                                <select v-model="paymentTerms" type="text" class="input-group" @blur="handleBlurpTerms">
                                 <option value="Net 1 Day">Net 1 Day</option>
                                 <option value="Net 7 Days">Net 7 Days</option>
                                 <option value="Net 21 Days">Net 21 Days</option>
@@ -74,7 +74,7 @@
 
                             <div class="py-6">
                                 <label class="text-sm">Description</label>
-                                <input v-model="description" type="text" class="input-group " placeholder="eg:crypto vendor services">
+                                <input v-model="description" type="text" class="input-group " placeholder="eg:crypto vendor services" @blur="handleBlurDesc">
                             </div>
 
                             <h1 class="text-gray-400 font-bold py-5 text-xl">items List</h1>
@@ -93,7 +93,7 @@
                             </div>
 
                             <div>
-                                <button type="submit"  class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
+                                <button :disabled="isDisabled" :class="{'disable-submit': isDisabled}" type="submit" class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
                             </div>
                         </div>
 
@@ -182,6 +182,7 @@ export default {
                 statusText: 'Pending',
                 paid: false,
                 showMarkBtn: true,
+                draftio: false,
                 
 
                 addItems: this.addItems,
@@ -205,7 +206,7 @@ export default {
         saveAsDraft() {
             this.invoice = ({
                 statusText: "Draft",
-                // paid: null
+                draftio: true
             })
                 let uniqueId = ''
                 uniqueId += "DRAFT" + String(Math.random()).slice(2, 6);
@@ -223,8 +224,31 @@ export default {
             this.pushToLocalStorage();
         },
 
+         handleBlur(e)  { this.streetAddress.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurCity(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurCountry(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurpCode(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurcName(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurcSA(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurcMail(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurcpCode(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurcCity(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurcCountry(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurivDate(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurpTerms(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' },
+         handleBlurDesc(e) { this.city.length > 0 ? e.target.style.border = '1px solid #7c5ef3' : e.target.style.border = 'red 1px solid' }
+        
          
     
+    },
+
+    computed: {
+        isDisabled() {
+            return this.streetAddress.length && this.city.length && 
+            this.postCode.length && this.clientName.length && this.clientEmail.length &&
+            this.clientCity.length && this.clientPostCode.length && this.invoiceDate.length &&
+            this.paymentTerms.length && this.description.length > 0 ? false : true
+        }
     }
 }
 </script>
@@ -353,5 +377,9 @@ export default {
 .slide-fade-enter, .slide-fade-leave-to{
   transform: translateX(10px);
   opacity: 0;
+}
+
+.disable-submit{
+    cursor:not-allowed;
 }
 </style>
