@@ -5,7 +5,7 @@
       </div>
 
       <div class="xl:w-6/12 lg:w-8/12 md:w-9/12 w-11/12 mx-auto pt-16">
-        <div class="flex justify-between items-center pb-10">
+        <div class="flex justify-between items-center pb-10 animate__animated animate__fadeInDown">
 
             <div class="titleHolder w-4/12">
                 <h1 class="sm:text-3xl text-xl font-bold pb-1 tracking-wide">Invoices</h1>
@@ -13,7 +13,7 @@
             </div>
 
             <div class="relative sm:w-3/12 w-4/12">
-                <div @click="statusToggle" class="">
+                <div @click="statusToggle">
                     <div v-if="!statusBar" class="flex sm:gap-4 gap-1 items-center cursor-pointer">
                         <p class="sm:block hidden sm:text-sm text-xs font-bold">Filter by status</p>
                         <p class="sm:hidden block sm:text-sm text-xs font-bold">Filter</p>
@@ -29,7 +29,7 @@
 
 
                 <div v-if="statusBar" class="absolute w-full">
-                    <div class="bg-white status-holder shadow px-3 py-4">
+                    <div class="bg-white status-holder shadow px-3 py-2 animate__animated animate__fadeInDown animate__faster">
                         <div class="flex gap-1">
                             <input  type="checkbox" name="status" v-model="paid" />
                             <label class="font-bold text-xs pl-3" for="Paid">Paid</label>
@@ -55,41 +55,41 @@
 
         </div>
 
-            <div v-if="invoices" class="">
-                 <div v-for="invoice in filteredInvoices" :key="invoice.id" class="invoice">
-                <router-link :to="{name: 'InvoiceDetails', params: { id: invoice.id }}">
-                <div class="invoice-holder">
-                    <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
-                    <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
-                    <h1 class="name-cont">{{ invoice.clientName }}</h1>
-                    <!-- <h1 class="total-cont">&#163; {{ invoice.netTotal }}</h1> -->
-                    <h1 class="total-cont"> 
-                        <span class="flex items-center font-bold text-2xl">
-                            <span class="pr-2">&#163;</span>
-                            <i class="fas fa-asterisk"></i>
-                            <i class="fas fa-asterisk"></i>
-                            <i class="fas fa-asterisk"></i>
-                            <i class="fas fa-asterisk"></i>
-                            <i class="fas fa-asterisk"></i>
-                            <i class="fas fa-asterisk"></i>
-                        </span>
-                    </h1>
-                    
-                    <div class="flex gap-3 items-center status-cont">
-                     <div class="relative">
-                        <div class="my-pending py-5" :class="{'paid' : invoice.paid}">
-                            <div class="absolute flex gap-2 items-center">
-                                <h1 class="my-circle h-2 w-2 "></h1>
-                                <h1>{{ invoice.statusText }}</h1>
+            <ul v-if="invoices" class="">
+                <li v-for="invoice in filteredInvoices" :key="invoice.id" class="invoice animate__animated animate__fadeInLeft">
+                    <router-link :to="{name: 'InvoiceDetails', params: { id: invoice.id }}">
+                    <div class="invoice-holder">
+                        <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
+                        <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
+                        <h1 class="name-cont">{{ invoice.clientName }}</h1>
+                        <!-- <h1 class="total-cont">&#163; {{ invoice.netTotal }}</h1> -->
+                        <h1 class="total-cont"> 
+                            <span class="flex items-center font-bold text-2xl">
+                                <span class="pr-2">&#163;</span>
+                                <i class="fas fa-asterisk"></i>
+                                <i class="fas fa-asterisk"></i>
+                                <i class="fas fa-asterisk"></i>
+                                <i class="fas fa-asterisk"></i>
+                                <i class="fas fa-asterisk"></i>
+                                <i class="fas fa-asterisk"></i>
+                            </span>
+                        </h1>
+                        
+                        <div class="flex gap-3 items-center status-cont">
+                        <div class="relative">
+                            <div class="my-pending py-5" :class="{'paid' : invoice.paid}">
+                                <div class="absolute flex gap-2 items-center">
+                                    <h1 class="my-circle h-2 w-2 "></h1>
+                                    <h1>{{ invoice.statusText }}</h1>
+                                </div>
                             </div>
                         </div>
+                        <img class="md:block hidden" src="./assets/images/icon-arrow-right.svg" alt="sideArrow" />
+                        </div>
                     </div>
-                    <img class="md:block hidden" src="./assets/images/icon-arrow-right.svg" alt="sideArrow" />
-                    </div>
-                </div>
-                </router-link>
-            </div>
-            </div>
+                    </router-link>
+                </li>
+            </ul>
 
             <div v-else>
                 Loading...
@@ -267,6 +267,5 @@ body{
     grid-column: span 2;
     margin-left: -20px;
 }
-
 
 </style>

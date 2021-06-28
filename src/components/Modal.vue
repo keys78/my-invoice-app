@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="backdrop" @click.self="$emit('close')">
-        <div class="modal w-6/12">
+        <div class="modal w-6/12  animate__animated animate__bounceInLeft">
         <h1 class="pt-12 pb-12 sm:pb-6 md:pl-28 pl-6 mx-auto text-2xl font-semibold">Create Invoice</h1>
 
         <div class="">
@@ -237,8 +237,19 @@ export default {
     top:0;
     background: rgba(0,0,0,0.4);
     z-index: 1;
+    animation: switch 0.6s linear;
     
 }
+
+@keyframes switch{
+    from {
+         background: rgba(0,0,0,0.01);
+    }
+    to{
+         background: rgba(0,0,0,0.4);
+    }
+}
+
 .input-group{
     padding:11px 7px;
     border:1px solid #d9d0ff;
@@ -331,5 +342,16 @@ export default {
     color:#DFE3FA;
     border:none;
     transition: background 0.5s ease-in-out;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

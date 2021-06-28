@@ -1,11 +1,11 @@
 <template>
-<div class="kolo">
+<div :class="mode">
      <div class="sidebar fixed left-0 rounded-r-2xl" style="z-index:4;">
       <div class="logo-holder rounded-r-2xl">
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
       </div>
       <div class="navHolders ">
-        <!-- <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/> -->
+        <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/>
         <div @click="openProfile" class="avatar  cursor-pointer">
           <img class="mx-auto rounded-full w-10" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
         </div>
@@ -13,7 +13,7 @@
     </div>
 
 
-    <section class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16">
+    <section class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16  animate__animated animate__fadeInUp  ">
         <button class="py-3 mt-12 rounded-2xl sm:px-6 px-2"><router-link class="flex items-center gap-4" to="/">
             <img class="mx-auto" src="./assets/images/icon-arrow-left.svg" alt="sideArrow" />
             <p class="text-black lightio">Go Back</p>
@@ -144,7 +144,7 @@
     <section>
         <div v-if="showEdit">
         <div class="backdrop" @click.self="editInvoice">
-        <div class="modal w-6/12 spartan h-screen rounded-r-2xl">
+        <div class="modal animate__animated animate__bounceInLeft w-6/12 spartan h-screen rounded-r-2xl">
 
             
                 <h1 class="py-12 md:w-9/12 w-full pl-6 mx-auto text-2xl font-medium">Edit Invoice #{{ id }}</h1>
@@ -293,8 +293,8 @@ export default {
             this.invoices = JSON.parse(localStorage.getItem('invoices'))
         }
            
-        // this.currentmode = localStorage.getItem('mode')
-        // this.mode = this.currentmode
+        this.currentmode = localStorage.getItem('mode')
+        this.mode = this.currentmode
     },
     
      mounted() {
@@ -331,10 +331,10 @@ export default {
             localStorage.setItem('invoices', JSON.stringify(this.invoices))
         },
 
-        // nightMode() {
-        //     this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
-        //     localStorage.setItem('mode', this.mode)
-        // },
+        nightMode() {
+            this.mode === 'dark' ? this.mode = 'light' : this.mode = 'dark'
+            localStorage.setItem('mode', this.mode)
+        },
 
         closeProfile() {this.showProfile = false},
 
@@ -360,10 +360,6 @@ export default {
 </script>
 
 <style>
-
-/* body{
-    background: red;
-} */
 
  .modalEdit{
     background: #fff;
