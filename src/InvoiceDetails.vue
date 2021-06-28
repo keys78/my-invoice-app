@@ -107,10 +107,10 @@
             </div>
 
           </div>
-            <div class="el-buttono-2 sm:hidden flex">
+            <div class="el-buttono-2 sm:hidden">
                 <button @click="editInvoice" class="discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
                 <div>
-                    <button @click="deleteModal" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+                    <button @click="deleteModal" class="sm:ml-4  delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
                     <button v-if="invoice.showMarkBtn" @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
                 </div>
             </div>
@@ -129,9 +129,9 @@
       <div class="mt-40 xl:w-4/12 md:w-6/12 sm:w-8/12 w-11/12 mx-auto">
         <img class="mx-auto rounded-full w-40" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
         <h1 class="text-3xl py-4 text-center">Emcodes</h1>
-        <div class="mx-auto text-center w-5/12">
+        <div class="mx-auto text-center sm:w-5/12 w-11/12">
           <div class="flex items-center hover:text-yellow-600 gap-5"><a class="pb-2" href="https://twitter.com/Emmy31087589">Connect with me</a><img class="w-4" src="./assets/images/icon-external-link.svg" alt="link" /></div>
-          <div class="flex items-center hover:text-yellow-600 gap-5"><a href="https://github.com/Em-codes/invoice-app">Github Repo</a><img class="w-4" src="./assets/images/icon-external-link.svg" alt="link" /></div>
+          <div class="flex items-center hover:text-yellow-600 gap-5"><a href="https://github.com/Em-codes/my-invoice-app">Github Repo</a><img class="w-4" src="./assets/images/icon-external-link.svg" alt="link" /></div>
           </div>
       </div>
   </div>

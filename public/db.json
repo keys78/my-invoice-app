@@ -229,6 +229,7 @@
             "description": "Logo Re-design", 
             "statusText": "Draft",
             "paid":false,
+            "draftio": true,
             "addItems":[
                 {
                     "itemname": "Logo Re-design",

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen">
+  <div class="king">
       <div v-if="showModal" class="elmodali">
         <Modal :mode="mode" @close="toggleModal"/>
       </div>
@@ -55,8 +55,8 @@
 
         </div>
 
-            <ul v-if="invoices" class="">
-                <li v-for="invoice in filteredInvoices" :key="invoice.id" class="invoice animate__animated animate__fadeInLeft">
+            <div v-if="invoices.length" class="">
+                <div v-for="invoice in filteredInvoices" :key="invoice.id" class="invoice animate__animated animate__fadeInLeft">
                     <router-link :to="{name: 'InvoiceDetails', params: { id: invoice.id }}">
                     <div class="invoice-holder">
                         <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
@@ -88,14 +88,21 @@
                         </div>
                     </div>
                     </router-link>
-                </li>
-            </ul>
+                </div>
+            </div>
 
             <div v-else>
-                Loading...
+                <p>Loading Invoice.....</p>
+                <img class="h-40 -mt-16" src="https://i.pinimg.com/originals/65/ba/48/65ba488626025cff82f091336fbf94bb.gif" alt="loadre">
+                <div v-if="noInvoice" class="text-center">
+                    <img class="mx-auto" src="./assets/images/illustration-empty.svg" alt="sideArrow" />
+                    <h1 class="font-bold text-xl pt-8">There is nothing here</h1>
+                    <p class="invoice-inherit bg-transparent">Create an invoice by clicking the New button and get started.</p>
+                </div>
             </div>
-     
+    
     </div>
+    <p class="pb-40"></p>
   </div>
 </template>
 
@@ -122,6 +129,7 @@ export default {
             pending:false,
             draft:false,
             statusBar: false,
+            noInvoice:false
         }
     },
 
@@ -143,6 +151,7 @@ export default {
 
     mounted(){
         document.title = 'Total Invoices' + ' ' + '('+ this.invoices.length +')'
+        this.invoices.length > 0 ? this.noInvoice = false : this.noInvoice = true
     },
 
     methods: {
@@ -262,6 +271,9 @@ body{
    background:rgb(247, 247, 250);
 }
 
+
+
+
 .invoice-holder{
     display: grid;
     grid-template-columns: repeat(11, 1fr);
@@ -283,6 +295,10 @@ body{
 .status-cont{
     grid-column: span 2;
     margin-left: -20px;
+}
+
+.king{
+    height:170vh;
 }
 
 </style>
