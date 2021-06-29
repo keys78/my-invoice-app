@@ -110,7 +110,7 @@
             <div class="el-buttono-2 sm:hidden">
                 <button @click="editInvoice" class="discard-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-3">Edit</button>
                 <div>
-                    <button @click="deleteModal" class="sm:ml-4  delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+                    <button @click="deleteModal" class="sm:ml-4  delete-button focus:outline-none mx-1 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
                     <button v-if="invoice.showMarkBtn" @click="markAsPaid" class="save-button focus:outline-none rounded-2xl text-white py-3 sm:px-6 px-2">Mark as Paid</button>
                 </div>
             </div>

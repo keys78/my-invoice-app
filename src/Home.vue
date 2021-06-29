@@ -6,8 +6,9 @@
       <div class="logo-holder rounded-r-2xl">
         <img class="mx-auto" src="./assets/images/logo.svg" alt="sidepanel" />
       </div>
-      <Gifttheme :gift="gift" class="lg:block hidden" @giftMode="giftMode"/>
+     
       <div class="navHolders ">
+         <Gifttheme :gift="gift" class="w-24" @giftMode="giftMode"/>
         <DarkModeButton :mode="mode" class="md:border-b border-r border-gray-700" @nightMode="nightMode"/>
         <div @click="openProfile" class="avatar cursor-pointer">
           <img class="mx-auto rounded-full w-10" src="https://images.pexels.com/photos/371168/pexels-photo-371168.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" alt="sideArrow" />
@@ -149,6 +150,7 @@ import Gifttheme from './components/Gifttheme.vue'
      background-repeat:no-repeat;
      background-size: cover;
      background-attachment: fixed;
+     transition: background 1s ease-in-out;
   }
     @media screen and (max-width: 900px) {
    .sidebar{
