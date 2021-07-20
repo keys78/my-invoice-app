@@ -62,9 +62,7 @@
                         <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>
                         <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
                         <h1 class="name-cont">{{ invoice.clientName }}</h1>
-                        <!-- <h1 class="total-cont">&#163; {{ invoice.netTotal }}</h1> -->
                         <h1 class="total-cont font-bold" style="font-family: 'Spartan', sans-serif;"> 
-                            <!-- <span class="flex items-center font-semibold text-2xl"> -->
                                 £{{ invoice.netTotal }}
                                 
                             <!-- </span> -->
