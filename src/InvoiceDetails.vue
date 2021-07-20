@@ -19,7 +19,7 @@
             <p class="text-black lightio">Go Back</p>
             </router-link>
         </button>
-
+       
         <div class="sm:flex justify-between items-center invoice-inherit">
             <div class="flex justify-between gap-5 items-center">
                 <h1>Status</h1>
@@ -93,15 +93,14 @@
                     <p class="billTops sm:col-span-3 col-span-6">{{ addItems.itemname }}</p>
                     <p class="billTops sm:block hidden col-span-2">{{ addItems.quantity }}</p>
                     <p class="billTops sm:block hidden col-span-2">{{ addItems.price }}</p>
-                    <p class="billTops sm:col-span-1 col-span-2">&#163;{{ addItems.subTotal = addItems.quantity*addItems.price }}</p>
+                    <p class="billTops sm:col-span-1 col-span-2">£{{ addItems.subTotal = addItems.quantity*addItems.price }}</p>
                 </div>
                 </div>
 
                 <div class="ndiMpa rounded-b-2xl">
-                    <div class="py-8 px-2 flex justify-between items-center ">
+                    <div class="py-8 px-6 flex justify-between items-center ">
                         <p class="sm:text-lg text-base text-gray-100">Amount Due</p>
-                        <p ref="nkita" class="sm:text-3xl text-2xl font-bold text-white">&#163;{{ invoice.netTotal = sumOfTotals }}</p>
-                        <!-- <p class="text-3xl font-bold text-white">{{ invoice.netTotal}}  {{ sumOfTotals }}</p> -->
+                        <p class="sm:text-2xl text-xl font-bold text-white" style="font-family: 'Spartan', sans-serif;">£{{ sumOfTotal }}</p>
                     </div>
                 </div>
             </div>
@@ -281,10 +280,10 @@ export default {
     },
     data() {
         return{
-            invoices:[],
+            // invoices:[],
             invoice: {
                 showMarkBtn:true,
-                netTotal:'',
+                netTotal:this.sumOfTotal,
             },
             showEdit: false,
             mode:'',
@@ -297,15 +296,15 @@ export default {
     beforeMount() {
         this.invoices = JSON.parse(localStorage.getItem('invoices'))
 
-        if (this.invoices === null) {
-            fetch('./db.json/') 
-            .then(res => { return res.json()})
-            .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
-            this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
-            })
-        } else {
-            this.invoices = JSON.parse(localStorage.getItem('invoices'))
-        }
+        // if (this.invoices === null) {
+        //     fetch('./db.json/') 
+        //     .then(res => { return res.json()})
+        //     .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
+        //     this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
+        //     })
+        // } else {
+        //     this.invoices = JSON.parse(localStorage.getItem('invoices'))
+        // }
            
         this.currentmode = localStorage.getItem('mode')
         this.mode = this.currentmode
@@ -316,7 +315,6 @@ export default {
         this.invoices.forEach(invoice => {
             if(invoice.id === this.id) { this.invoice = invoice }
         });
-       
     },
 
     methods: {
@@ -331,6 +329,7 @@ export default {
         },
 
         saveChanges() {
+            this.invoice.netTotal = this.sumOfTotal
             localStorage.setItem('invoices', JSON.stringify(this.invoices))
         },
 
@@ -361,16 +360,23 @@ export default {
 
 
     computed: {
-    sumOfTotals () {
-        if(this.invoice.hasOwnProperty("addItems")) {
-        return this.invoice.addItems.reduce((sum, addItem) => {
-             return this.invoice.netTotal = (sum += addItem.subTotal); 
-        }, 0);
+    sumOfTotal () {
+    //     if(this.invoice.hasOwnProperty("addItems")) {
+    //     return this.invoice.addItems.reduce((sum, addItem) => {
+    //          return sum += addItem.subTotal; 
+    //     }, 0);
         
-      }
+    //   }
+        if(this.invoice.hasOwnProperty("addItems")) {
+        let total = this.invoice.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          let myTotal = total.toLocaleString(undefined, {minimumFractionDigits: 2})
+            return myTotal
+        }
+    //  return this.$store.getters.invoiceTotal
+    //  return 1
       
     },
-    
+ 
 }
     
    

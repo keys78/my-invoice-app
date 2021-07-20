@@ -63,16 +63,11 @@
                         <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
                         <h1 class="name-cont">{{ invoice.clientName }}</h1>
                         <!-- <h1 class="total-cont">&#163; {{ invoice.netTotal }}</h1> -->
-                        <h1 class="total-cont"> 
-                            <span class="flex items-center font-semibold text-2xl">
-                                <span class="pr-1">&#163;</span>
-                                <i class="fas fa-asterisk"></i>
-                                <i class="fas fa-asterisk"></i>
-                                <i class="fas fa-asterisk"></i>
-                                <i class="fas fa-asterisk"></i>
-                                <i class="fas fa-asterisk"></i>
-                                <i class="fas fa-asterisk"></i>
-                            </span>
+                        <h1 class="total-cont font-bold" style="font-family: 'Spartan', sans-serif;"> 
+                            <!-- <span class="flex items-center font-semibold text-2xl"> -->
+                                £{{ invoice.netTotal }}
+                                
+                            <!-- </span> -->
                         </h1>
                         
                         <div class="flex gap-3 items-center status-cont">
@@ -168,6 +163,14 @@ export default {
            if(this.draft) {return this.invoices.filter((invoice) => invoice.statusText === "Draft")}
            else return this.invoices
         },  
+
+         sumTotal() {
+            //  this.invoices.forEach(invoice => {
+            //      return this.$store.getters.invoiceTotal(invoice)
+            //  })
+            // return 0
+         
+         },
     }
 }
   

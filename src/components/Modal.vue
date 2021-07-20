@@ -93,7 +93,7 @@
                             </div>
 
                             <div>
-                                <button :disabled="isDisabled" :class="{'disable-submit': isDisabled}" type="submit" class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
+                                <button  :class="{'disable-submit': isDisabled}" type="submit" class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
                             </div>
                         </div>
 
@@ -186,7 +186,7 @@ export default {
                 
 
                 addItems: this.addItems,
-                netTotal:'',
+                netTotal:this.calcAll
            
                  
             })
@@ -198,10 +198,12 @@ export default {
                 uniqueId += String(Math.random()).slice(2, 6);
                 this.invoice.id = uniqueId;
                 console.log(uniqueId)
+                
                
-            this.saveToLocalStorage();
-           
+            this.saveToLocalStorage();   
         },
+
+       
 
         saveAsDraft() {
             this.invoice = ({
@@ -243,12 +245,15 @@ export default {
     },
 
     computed: {
-        isDisabled() {
-            return this.streetAddress.length && this.city.length && 
-            this.postCode.length && this.clientName.length && this.clientEmail.length &&
-            this.clientCity.length && this.clientPostCode.length && this.invoiceDate.length &&
-            this.paymentTerms.length && this.description.length > 0 ? false : true
-        }
+        // isDisabled() {
+        //     return this.streetAddress.length && this.city.length && 
+        //     this.postCode.length && this.clientName.length && this.clientEmail.length &&
+        //     this.clientCity.length && this.clientPostCode.length && this.invoiceDate.length &&
+        //     this.paymentTerms.length && this.description.length > 0 ? false : true
+        // },
+         calcAll() {
+            return this.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        },
     }
 }
 </script>
