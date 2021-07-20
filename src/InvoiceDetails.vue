@@ -360,17 +360,13 @@ export default {
 
 
     computed: {
-    sumOfTotal () {
-   
-        if(this.invoice.hasOwnProperty("addItems")) {
-        let total = this.invoice.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-          let myTotal = total.toLocaleString(undefined, {minimumFractionDigits: 2})
-            return myTotal
-        }
-    //  return this.$store.getters.invoiceTotal
-    //  return 1
-      
-    },
+        sumOfTotal () {
+            if(this.invoice.hasOwnProperty("addItems")) {
+            let total = this.invoice.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let myTotal = total.toLocaleString(undefined, {minimumFractionDigits: 2})
+                return myTotal
+            }
+        },
  
 }
     

@@ -159,14 +159,6 @@ export default {
            if(this.draft) {return this.invoices.filter((invoice) => invoice.statusText === "Draft")}
            else return this.invoices
         },  
-
-         sumTotal() {
-            //  this.invoices.forEach(invoice => {
-            //      return this.$store.getters.invoiceTotal(invoice)
-            //  })
-            // return 0
-         
-         },
     }
 }
   
