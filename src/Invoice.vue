@@ -56,7 +56,7 @@
         </div>
 
             <div v-if="invoices.length" class="">
-                <div v-for="invoice in filteredInvoices" :key="invoice.id" class="invoice animate__animated animate__fadeInLeft">
+                <div v-for="(invoice, index) in filteredInvoices" :key="index" class="invoice animate__animated animate__fadeInLeft">
                     <router-link :to="{name: 'InvoiceDetails', params: { id: invoice.id }}">
                     <div class="invoice-holder">
                         <h1 class="id-cont"><span class="text-sm font-bold">#</span><span class="id-style">{{ invoice.id }}</span></h1>

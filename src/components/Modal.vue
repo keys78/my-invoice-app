@@ -93,7 +93,7 @@
                             </div>
 
                             <div>
-                                <button  :class="{'disable-submit': isDisabled}" type="submit" class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
+                                <button :disabled="isDisabled" :class="{'disable-submit': isDisabled}" type="submit" class="save-button py-4 sm:px-4 px-2 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Send & Save</button>
                             </div>
                         </div>
 
@@ -245,14 +245,16 @@ export default {
     },
 
     computed: {
-        // isDisabled() {
-        //     return this.streetAddress.length && this.city.length && 
-        //     this.postCode.length && this.clientName.length && this.clientEmail.length &&
-        //     this.clientCity.length && this.clientPostCode.length && this.invoiceDate.length &&
-        //     this.paymentTerms.length && this.description.length > 0 ? false : true
-        // },
+        isDisabled() {
+            return this.streetAddress.length && this.city.length && 
+            this.postCode.length && this.clientName.length && this.clientEmail.length &&
+            this.clientCity.length && this.clientPostCode.length && this.invoiceDate.length &&
+            this.paymentTerms.length && this.description.length > 0 ? false : true
+        },
          calcAll() {
-            return this.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let total = this.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let myTotal = total.toLocaleString(undefined, {minimumFractionDigits: 2})
+                return myTotal
         },
     }
 }

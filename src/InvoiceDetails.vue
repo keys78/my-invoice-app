@@ -13,7 +13,7 @@
     </div>
 
 
-    <section class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16  animate__animated animate__fadeIn animated__slower">
+    <section v-if="invoice" class="xl:w-5/12 lg:w-7/12 md:w-9/12 w-11/12 mx-auto mx-auto sm:pt-2 pt-16  animate__animated animate__fadeIn animated__slower">
         <button class="py-3 mt-12 rounded-2xl sm:px-6 px-2"><router-link class="flex items-center gap-4" to="/">
             <img class="mx-auto" src="./assets/images/icon-arrow-left.svg" alt="sideArrow" />
             <p class="text-black lightio">Go Back</p>
@@ -144,7 +144,7 @@
                 <div><!--empty--></div>
                 <div>
                     <button @click="cancelBtn" class="discard-button py-4 px-4 text-center rounded-2xl text-xs font-bold focus:outline-none text-white">Cancel</button>
-                    <button @click="deleteInvoice(invoice)" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
+                    <button @click="deleteInvoice" class="sm:ml-4 ml-20 delete-button focus:outline-none mx-6 rounded-2xl text-white py-3 sm:px-6 px-3">Delete</button>
                 </div>
             </div>
         </div>
@@ -283,7 +283,6 @@ export default {
             // invoices:[],
             invoice: {
                 showMarkBtn:true,
-                netTotal:this.sumOfTotal,
             },
             showEdit: false,
             mode:'',
@@ -323,7 +322,7 @@ export default {
         },
 
         deleteInvoice(invoice) {
-            this.invoice = this.invoices.splice(invoice, 1);
+            this.invoices.splice(invoice, 1);
             this.persistToLocalStorage()
             this.$router.push({ name: 'Home' })
         },

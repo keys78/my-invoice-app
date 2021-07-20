@@ -3,15 +3,15 @@
         <div v-for="(addItem, counter) in addItems" :key="counter" class="flex justify-between items-center gap-4 pb-4">
             <div>
                 <label class="text-sm">Item Name</label>
-                <input type="text" class="input-group w-4/12" v-model="addItem.itemname">
+                <input required type="text" class="input-group w-4/12" v-model="addItem.itemname ">
             </div>
            <div>
                 <label class="text-sm">Qty</label>
-                <input type="number" class="input-group w-2/12" v-model="addItem.quantity">
+                <input required type="number" class="input-group w-2/12" v-model="addItem.quantity">
             </div>
             <div>
                 <label class="text-sm">Price</label>
-                <input type="number" class="input-group w-2/12" v-model="addItem.price">
+                <input required type="number" class="input-group w-2/12" v-model="addItem.price">
             </div>
             
             <div class="w-2/12">
