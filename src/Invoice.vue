@@ -63,9 +63,7 @@
                         <h1 class="date-cont">Due {{invoice.invoiceDate}}</h1>
                         <h1 class="name-cont">{{ invoice.clientName }}</h1>
                         <h1 class="total-cont font-bold" style="font-family: 'Spartan', sans-serif;"> 
-                                £{{ invoice.netTotal }}
-                                
-                            <!-- </span> -->
+                            £{{ invoice.netTotal }}
                         </h1>
                         
                         <div class="flex gap-3 items-center status-cont">

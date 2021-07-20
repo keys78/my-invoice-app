@@ -296,15 +296,15 @@ export default {
     beforeMount() {
         this.invoices = JSON.parse(localStorage.getItem('invoices'))
 
-        // if (this.invoices === null) {
-        //     fetch('./db.json/') 
-        //     .then(res => { return res.json()})
-        //     .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
-        //     this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
-        //     })
-        // } else {
-        //     this.invoices = JSON.parse(localStorage.getItem('invoices'))
-        // }
+        if (this.invoices === null) {
+            fetch('./db.json/') 
+            .then(res => { return res.json()})
+            .then(data => { localStorage['defaultInvoice'] = JSON.stringify(data)
+            this.invoices = JSON.parse(localStorage.getItem('defaultInvoice'))
+            })
+        } else {
+            this.invoices = JSON.parse(localStorage.getItem('invoices'))
+        }
            
         this.currentmode = localStorage.getItem('mode')
         this.mode = this.currentmode
@@ -361,12 +361,7 @@ export default {
 
     computed: {
     sumOfTotal () {
-    //     if(this.invoice.hasOwnProperty("addItems")) {
-    //     return this.invoice.addItems.reduce((sum, addItem) => {
-    //          return sum += addItem.subTotal; 
-    //     }, 0);
-        
-    //   }
+   
         if(this.invoice.hasOwnProperty("addItems")) {
         let total = this.invoice.addItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
           let myTotal = total.toLocaleString(undefined, {minimumFractionDigits: 2})
